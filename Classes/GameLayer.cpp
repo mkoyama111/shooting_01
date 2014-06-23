@@ -155,6 +155,11 @@ int GameLayer::minusMyShipLife()
     return m_my_ship_life_count;
 }
 
+void GameLayer::addScore(int score)
+{
+    m_score += score;
+}
+
 void GameLayer::createAnimationCache()
 {
     AnimationCache::getInstance()->destroyInstance();
