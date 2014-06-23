@@ -465,7 +465,7 @@ void Enemy01::update2()
     }
 
     //// Bullets
-    if (m_count > 0 && m_count % 100 == 0) {
+    if (m_count > 100 && m_count % 100 == 0) {
         GameLayer* game_layer = GameLayer::getGameLayer();
         const Point& pos = this->getPosition();
         const short ang = game_layer->getAngleToMyShip(pos.x, pos.y);
@@ -613,7 +613,7 @@ void Enemy05::update2()
             ang = (ang + rand()) % 360;
             if (ang < 180) ang += 180;
         }
-        if (m_count > 600 && m_count % 100 == 0) {
+        if (m_count >= 700 && m_count <= 1400 && m_count % 100 == 0) {
             CreateBulletCommand create_bullet = { kEnemyBullet_04, -1, -1, 270, 1.5f, 0.0f, 0.0f, 12, 30, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 4, 0, 20, 15 };
             m_create_bullets_com_list.push_back(create_bullet);
         }
@@ -665,14 +665,14 @@ void Enemy06::update2()
         GameLayer* game_layer = GameLayer::getGameLayer();
         const Point& pos = this->getPosition();
         const short ang = game_layer->getAngleToMyShip(pos.x, pos.y);
-        CreateBulletCommand create_bullet2 = { kEnemyBullet_04, -1, -1, ang, 2.0f, 0.0f, 0.0f, 4, 30, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 2, 0, 10, 15 };
+        CreateBulletCommand create_bullet2 = { kEnemyBullet_04, -1, -1, ang, 1.8f, 0.0f, 0.0f, 4, 30, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 2, 0, 10, 15 };
         m_create_bullets_com_list.push_back(create_bullet2);
     }
     if (m_count == count_1 + 620) {
         GameLayer* game_layer = GameLayer::getGameLayer();
         const Point& pos = this->getPosition();
         const short ang = game_layer->getAngleToMyShip(pos.x, pos.y);
-        CreateBulletCommand create_bullet2 = { kEnemyBullet_04, -1, -1, ang, 2.0f, 0.0f, 0.0f, 4, 30, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 5, 0, 10, 15 };
+        CreateBulletCommand create_bullet2 = { kEnemyBullet_04, -1, -1, ang, 1.8f, 0.0f, 0.0f, 4, 30, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 4, 0, 10, 15 };
         m_create_bullets_com_list.push_back(create_bullet2);
     }
 }
@@ -683,7 +683,12 @@ void Enemy07::update2()
     if (m_count == 0) {
         m_speed = 2.0f;
     }
-    if (m_count % 30 == 0) {
+    if (m_count > 1400) {
+        m_angle = 270;
+        m_dx = m_speed * MathUtil::cos(m_angle);
+        m_dy = m_speed * MathUtil::sin(m_angle);
+        this->setRotation(360.0f - m_angle + 90.0f);
+    } else if (m_count % 30 == 0) {
         GameLayer* game_layer = GameLayer::getGameLayer();
         const Point& pos = this->getPosition();
         const int ang = game_layer->getAngleToMyShip(pos.x, pos.y);
