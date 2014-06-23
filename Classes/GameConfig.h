@@ -175,7 +175,7 @@ static const int ENEMY_08_SCORE    = 2000;
 // 敵機09
 static const int ENEMY_09_VITALITY = 100;
 static const int ENEMY_09_SCORE    = 1000;
-// 地上敵機01
+// 地上敵01
 static const int ENEMY_GROUND_01_VITALITY = 10;
 static const int ENEMY_GROUND_01_SCORE    = 100;
 // 敵ボス01
