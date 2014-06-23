@@ -84,7 +84,6 @@ public:
 
     int plusMyShipLife();
     int minusMyShipLife();
-    void addScore(int score);
 
 protected:
 

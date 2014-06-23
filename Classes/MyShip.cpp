@@ -306,10 +306,7 @@ void MyShip::launchLaserCallback(cocos2d::Node* sender, void* target)
     if (enemy) {
         if (!enemy->getFinished()) {
             if (enemy->damage(MY_LASER_DAMAGE)) {
-                game_layer->addScore(enemy->getScore());
                 game_layer->createExplosion((GameLayer::kTag)enemy->getTag(), enemy->getPosition(), true);
-            } else {
-                game_layer->addScore(10);
             }
         }
         enemy->setLaserLocked(false);
