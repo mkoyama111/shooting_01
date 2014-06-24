@@ -591,7 +591,7 @@ void GameLayer::gameOver()
         const float delay_time = 1.0f;
         const float fade_in_time = 2.0f;
 
-#ifdef WIN32
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
         // Visual Studio 2012 では #pragma execution_character_set("utf-8") 
         // がサポートされていないため、ワイド文字からUTF-8に変換して、
         // CCLabelBMFont::create()にUTF-8文字列を渡す。
@@ -610,7 +610,7 @@ void GameLayer::gameOver()
             CCFadeIn::create(fade_in_time),
             NULL));
 
-#ifdef WIN32
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
         ::WideCharToMultiByte(CP_UTF8, 0, L"タイトルにもどる", -1, buf, sizeof(buf), NULL, NULL);
         auto back_label = Label::createWithBMFont(BM_FONT_01, buf);
 #else

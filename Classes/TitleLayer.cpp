@@ -26,7 +26,7 @@ bool TitleLayer::init()
 
     showHighScore();
 
-#ifdef WIN32
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
     // Visual Studio 2012 では #pragma execution_character_set("utf-8") 
     // がサポートされていないため、ワイド文字からUTF-8に変換して、
     // CCLabelBMFont::create()にUTF-8文字列を渡す。
@@ -40,7 +40,7 @@ bool TitleLayer::init()
     auto start_btn = MenuItemLabel::create(start_label, CC_CALLBACK_1(TitleLayer::gameStartCallback, this));        
     start_btn->setPosition(Point(winSize.width * 0.5f, winSize.height * 0.7f));
 
-#ifdef WIN32
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
     ::WideCharToMultiByte(CP_UTF8, 0, L"ゲーム終了", -1, buf, sizeof(buf), NULL, NULL);
     auto end_label = Label::createWithBMFont(BM_FONT_01, buf);
 #else

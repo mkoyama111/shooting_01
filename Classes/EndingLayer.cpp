@@ -24,13 +24,13 @@ bool EndingLayer::init()
     const float delay_time = 1.5f;
     const float fade_in_time = 3.0f;
 
-#ifdef WIN32
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
     char buf[128];
 #endif
 
     //// Game Clear
     {
-#ifdef WIN32
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
         ::WideCharToMultiByte(CP_UTF8, 0, L"ゲームクリア！", -1, buf, sizeof(buf), NULL, NULL);
         auto game_clear_label = Label::createWithBMFont(BM_FONT_01, buf);
 #else
@@ -48,7 +48,7 @@ bool EndingLayer::init()
 
     //// Score
     {
-#ifdef WIN32
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
         ::WideCharToMultiByte(CP_UTF8, 0, L"スコア:", -1, buf, sizeof(buf), NULL, NULL);
         auto game_score_label = Label::createWithBMFont(BM_FONT_01, buf);
 #else
@@ -73,7 +73,7 @@ bool EndingLayer::init()
 
     //// Back to title
     {
-#ifdef WIN32
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
         ::WideCharToMultiByte(CP_UTF8, 0, L"タイトルにもどる", -1, buf, sizeof(buf), NULL, NULL);
         auto back_label = Label::createWithBMFont(BM_FONT_01, buf);
 #else
@@ -96,7 +96,7 @@ bool EndingLayer::init()
 
     //// BGM
     {
-#ifdef WIN32
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
         ::WideCharToMultiByte(CP_UTF8, 0, L"BGM: 煉獄庭園様", -1, buf, sizeof(buf), NULL, NULL);
         auto bgm_label = Label::createWithBMFont(BM_FONT_01, buf);
 #else
