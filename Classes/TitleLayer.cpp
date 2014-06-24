@@ -10,8 +10,8 @@ using namespace CocosDenshion;
 
 Scene* TitleLayer::scene()
 {
-    Scene* scene = Scene::create();
-    TitleLayer* layer = TitleLayer::create();
+    auto scene = Scene::create();
+    auto layer = TitleLayer::create();
     scene->addChild(layer);
     return scene;
 }
@@ -37,7 +37,7 @@ bool TitleLayer::init()
     auto start_label = Label::createWithBMFont(BM_FONT_01, "ゲームスタート");
 #endif
     start_label->setColor(Color3B(255, 255, 255));
-    MenuItemLabel* start_btn = MenuItemLabel::create(start_label, CC_CALLBACK_1(TitleLayer::gameStartCallback, this));        
+    auto start_btn = MenuItemLabel::create(start_label, CC_CALLBACK_1(TitleLayer::gameStartCallback, this));        
     start_btn->setPosition(Point(winSize.width * 0.5f, winSize.height * 0.7f));
 
 #ifdef WIN32
@@ -47,10 +47,10 @@ bool TitleLayer::init()
     auto end_label = Label::createWithBMFont(BM_FONT_01, "ゲーム終了");
 #endif
     end_label->setColor(Color3B(255, 255, 255));
-    MenuItemLabel* end_btn = MenuItemLabel::create(end_label, CC_CALLBACK_1(TitleLayer::gameEndCallback, this));        
+    auto end_btn = MenuItemLabel::create(end_label, CC_CALLBACK_1(TitleLayer::gameEndCallback, this));        
     end_btn->setPosition(Point(winSize.width * 0.5f, winSize.height * 0.45f));
    
-    Menu* menu = Menu::create(start_btn, end_btn, NULL);
+    auto menu = Menu::create(start_btn, end_btn, NULL);
     menu->setPosition(Point::ZERO);
     this->addChild(menu);
 
@@ -64,8 +64,8 @@ bool TitleLayer::init()
 
 void TitleLayer::gameStartCallback(cocos2d::Ref* pSender)
 {
-    Scene* scene = GameLayer::scene();
-    TransitionFade* transition = TransitionFade::create(0.5f, scene);
+    auto scene = GameLayer::scene();
+    auto transition = TransitionFade::create(0.5f, scene);
     Director::getInstance()->replaceScene(transition);
 }
 

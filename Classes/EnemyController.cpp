@@ -29,7 +29,7 @@ EnemyController::EnemyController() : m_state(std::make_shared<EnemyControllerSta
 
 kGameStage EnemyController::getGameStage() const
 {
-    const std::shared_ptr<EnemyControllerState> next_state = m_state->nextState(this);
+    const auto next_state = m_state->nextState(this);
     if (next_state) {
         return next_state->getGameStage();
     }
@@ -38,7 +38,7 @@ kGameStage EnemyController::getGameStage() const
 
 void EnemyController::createEnemies(std::list<Enemy*>& enemy_list)
 {
-    const std::shared_ptr<EnemyControllerState> next_state = m_state->nextState(this);
+    const auto next_state = m_state->nextState(this);
     if (next_state) {
         m_boss_destroyed = false;
         m_state = next_state;
@@ -49,11 +49,11 @@ void EnemyController::createEnemies(std::list<Enemy*>& enemy_list)
 
 void EnemyControllerState::createEnemyByCommand(std::list<Enemy*>& enemy_list)
 {
-    GameLayer* game_layer = GameLayer::getGameLayer();
+    auto game_layer = GameLayer::getGameLayer();
 
     for (auto itr = m_create_enemy_com_list.begin(); itr != m_create_enemy_com_list.end(); ) {
         if (itr->count_to_start == 0) {
-            Enemy* enemy1 = Enemy::createEnemy(itr->type, itr->num, itr->x, itr->y, itr->angle, itr->vitality, itr->score, itr->on_background, itr->item);
+            auto enemy1 = Enemy::createEnemy(itr->type, itr->num, itr->x, itr->y, itr->angle, itr->vitality, itr->score, itr->on_background, itr->item);
             if (itr->on_background) {
                 game_layer->addChild(enemy1, GameLayer::kZOrderEnemyOnBackground, GameLayer::kTagEnemy);
             } else {

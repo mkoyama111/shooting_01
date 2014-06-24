@@ -40,15 +40,15 @@ Enemy::Enemy(kEnemy type, int num, float x, float y, int angle, int vitality, in
     this->setPosition(Point(x, y));
 
     if (on_bg) {
-        GameLayer* game_layer = GameLayer::getGameLayer();
+        auto game_layer = GameLayer::getGameLayer();
         float move_duration = 0;
         Point move_delta_pos;
         game_layer->getMoveBackgroundParam(move_duration, move_delta_pos);
         const float n_winSize = (move_delta_pos.y > 0) ? move_delta_pos.y / m_winSize.height : -move_delta_pos.y / m_winSize.height;
         move_delta_pos.y /= n_winSize;
         move_duration /= n_winSize;
-        MoveBy* move = MoveBy::create(move_duration, move_delta_pos);
-        CallFunc* pfunc = CallFunc::create(CC_CALLBACK_0(Enemy::FinishSelf, this));
+        auto move = MoveBy::create(move_duration, move_delta_pos);
+        auto pfunc = CallFunc::create(CC_CALLBACK_0(Enemy::FinishSelf, this));
         this->runAction(Sequence::create(move, pfunc, NULL));
     }
 
@@ -57,7 +57,7 @@ Enemy::Enemy(kEnemy type, int num, float x, float y, int angle, int vitality, in
 
 Enemy::~Enemy()
 {
-    GameLayer* game_layer = GameLayer::getGameLayer();
+    auto game_layer = GameLayer::getGameLayer();
     if (game_layer) {
         if (m_shadow) {
             m_shadow->removeFromParentAndCleanup(true);
@@ -139,13 +139,13 @@ Enemy* Enemy::spriteWithFile(kEnemy type, int num, float x, float y, int angle, 
 
         // Create shadow
         if (!pEnemy->m_on_background) {
-            GameLayer* game_layer = GameLayer::getGameLayer();
+            auto game_layer = GameLayer::getGameLayer();
             pEnemy->m_shadow = Sprite::createWithSpriteFrameName(sprite_frame_name.c_str());
             pEnemy->m_shadow_offset = Point(pEnemy->getContentSize().width * 0.13, pEnemy->getContentSize().height * -0.13);
             pEnemy->m_shadow->setPosition(pEnemy->getPosition() + pEnemy->m_shadow_offset);
             pEnemy->m_shadow->setColor(Color3B::BLACK);
             pEnemy->m_shadow->setScale(0.9f);
-            Layer* enemy_shadow_layer = (Layer*)game_layer->getChildByTag(GameLayer::kTagEnemyShadowLayer);
+            auto enemy_shadow_layer = (Layer*)game_layer->getChildByTag(GameLayer::kTagEnemyShadowLayer);
             enemy_shadow_layer->addChild(pEnemy->m_shadow, GameLayer::kZOrderEnemyShadow, GameLayer::kTagEnemyShadow);
         }
 
@@ -194,7 +194,7 @@ bool Enemy::damage(int point)
         return m_finished;
     }
 
-    AnimationCache* pAnimationCache = AnimationCache::getInstance();
+    auto pAnimationCache = AnimationCache::getInstance();
     Animation* animation = NULL;
     switch (m_enemy_type) {
     case kEnemy_01: animation = pAnimationCache->getAnimation(ANIME_DAMAGE_ENEMY_01);
@@ -236,10 +236,10 @@ bool Enemy::damage(int point)
     m_vitality -= point;
 
     if (m_enemy_type == kEnemyBoss_01) {
-        GameLayer* game_layer = GameLayer::getGameLayer();
+        auto game_layer = GameLayer::getGameLayer();
         const float rest = (m_vitality > 0) ? ((float)m_vitality / ENEMY_BOSS_01_VITALITY) : 0.0f;
         if (game_layer->getBoss01LifeGage()) {
-            ScaleTo* scale_to = ScaleTo::create(0.1f, rest, 1.0f);
+            auto scale_to = ScaleTo::create(0.1f, rest, 1.0f);
             game_layer->getBoss01LifeGage()->runAction(scale_to);
         }
     }
@@ -255,9 +255,9 @@ bool Enemy::damage(int point)
 void Enemy::emitItem()
 {
     if (m_item != kItem_NULL) {
-        GameLayer* game_layer = GameLayer::getGameLayer();
+        auto game_layer = GameLayer::getGameLayer();
         const Point& pos = this->getPosition();
-        Enemy* item = Enemy::createEnemy(kEnemyItem_01, 1, pos.x, pos.y, 90, 1, 0, false, kItem_NULL);
+        auto item = Enemy::createEnemy(kEnemyItem_01, 1, pos.x, pos.y, 90, 1, 0, false, kItem_NULL);
         game_layer->addChild(item, GameLayer::kZOrderEnemy, GameLayer::kTagEnemy);
         std::list<Enemy*>& enemy_list = game_layer->getEnemyList();
         enemy_list.push_back(item);
@@ -295,7 +295,7 @@ void Enemy::createStraightLineBullets(const CreateBulletCommand& com)
     const float x = (com.x == -1) ? point.x : com.x;
     const float y = (com.y == -1) ? point.y : com.y;
 
-    GameLayer* game_layer = GameLayer::getGameLayer();
+    auto game_layer = GameLayer::getGameLayer();
     int ang_1 = 0;
     if (com.bullets_count % 2) {
         ang_1 = com.angle - (com.distance_between_bullets * (int)(com.bullets_count / 2));
@@ -307,7 +307,7 @@ void Enemy::createStraightLineBullets(const CreateBulletCommand& com)
     }
 
     for (int i = 0; i < com.bullets_count; ++i) {
-        EnemyBullet* enemy_bullet = EnemyBullet::spriteWithFile(com.bullet_type, x, y, ang_1, com.speed, com.accel, com.speed_end,
+        auto enemy_bullet = EnemyBullet::spriteWithFile(com.bullet_type, x, y, ang_1, com.speed, com.accel, com.speed_end,
             com.stop_time, com.move_time, com.stop_time_2, com.angle_2, com.speed_2, com.accel_2, com.speed_end_2, com.vanish_time);
         game_layer->addChild(enemy_bullet, GameLayer::kZOrderEnemyBullet, GameLayer::kTagEnemyBullet);
         ang_1 += com.distance_between_bullets;
@@ -321,14 +321,14 @@ void Enemy::FinishSelf()
 
 Sprite* Enemy::createLifeGage()
 {
-    GameLayer* game_layer = GameLayer::getGameLayer();
+    auto game_layer = GameLayer::getGameLayer();
 
-    Sprite* life_gage = Sprite::createWithSpriteFrameName(IMAGE_BOSS_LIFE_GAGE);
+    auto life_gage = Sprite::createWithSpriteFrameName(IMAGE_BOSS_LIFE_GAGE);
     life_gage->setAnchorPoint(Point(0, 0));
     life_gage->setPosition(Point(12, m_winSize.height * 0.90f));
     game_layer->addChild(life_gage, GameLayer::kZOrderLifeGage, GameLayer::kTagLifeGage);
 
-    Sprite* life_gage_bg = Sprite::createWithSpriteFrameName(IMAGE_BOSS_LIFE_GAGE_BG);
+    auto life_gage_bg = Sprite::createWithSpriteFrameName(IMAGE_BOSS_LIFE_GAGE_BG);
     life_gage_bg->setAnchorPoint(Point(0, 0));
     life_gage_bg->setPosition(Point(12, m_winSize.height * 0.90f));
     game_layer->addChild(life_gage_bg, GameLayer::kZOrderLifeGageBg, GameLayer::kTagLifeGage);
@@ -466,7 +466,7 @@ void Enemy01::update2()
 
     //// Bullets
     if (m_count > 100 && m_count % 100 == 0) {
-        GameLayer* game_layer = GameLayer::getGameLayer();
+        auto game_layer = GameLayer::getGameLayer();
         const Point& pos = this->getPosition();
         const short ang = game_layer->getAngleToMyShip(pos.x, pos.y);
         CreateBulletCommand create_bullet = { kEnemyBullet_01, -1, -1, ang, 3.0f, 0.0f, 0.0f, 3, 20, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 1, 0, 0, 0 };
@@ -502,7 +502,7 @@ void Enemy02::update2()
 
     //// Bullets
     if (m_count > 0 && m_count % 100 == 0) {
-        GameLayer* game_layer = GameLayer::getGameLayer();
+        auto game_layer = GameLayer::getGameLayer();
         const Point& pos = this->getPosition();
         const short ang = game_layer->getAngleToMyShip(pos.x, pos.y);
         CreateBulletCommand create_bullet = { kEnemyBullet_01, -1, -1, ang, 3.0f, 0.0f, 0.0f, 1, 0, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 1, 0, 0, 0 };
@@ -538,7 +538,7 @@ void Enemy03::update2()
 
     //// Bullets
     if (m_count > 0 && m_count % 100 == 0) {
-        GameLayer* game_layer = GameLayer::getGameLayer();
+        auto game_layer = GameLayer::getGameLayer();
         const Point& pos = this->getPosition();
         const short ang = game_layer->getAngleToMyShip(pos.x, pos.y);
         CreateBulletCommand create_bullet = { kEnemyBullet_01, -1, -1, ang, 3.0f, 0.0f, 0.0f, 1, 0, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 1, 0, 0, 0 };
@@ -567,14 +567,14 @@ void Enemy04::update2()
 
     //// Bullets
     if ((m_count > 0 && m_count == 100) || m_count == 200 || m_count == 500 || m_count == 800 || m_count == 1100) {
-        GameLayer* game_layer = GameLayer::getGameLayer();
+        auto game_layer = GameLayer::getGameLayer();
         const Point& pos = this->getPosition();
         const short ang = game_layer->getAngleToMyShip(pos.x, pos.y);
         CreateBulletCommand create_bullet = { kEnemyBullet_01, -1, -1, ang, 3.0f, 0.0f, 0.0f, 1, 0, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 1, 0, 0, 0 };
         m_create_bullets_com_list.push_back(create_bullet);
     }
     if (m_count == 320 || m_count == 600 || m_count == 880) {
-        GameLayer* game_layer = GameLayer::getGameLayer();
+        auto game_layer = GameLayer::getGameLayer();
         const Point& pos = this->getPosition();
         const short ang = game_layer->getAngleToMyShip(pos.x, pos.y);
         CreateBulletCommand create_bullet = { kEnemyBullet_05, -1, -1, ang, 3.0f, 0.0f, 0.0f, 3, 30, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 15, 0, 5, 0 };
@@ -619,7 +619,7 @@ void Enemy05::update2()
         }
     } else {
         if (m_count > 150 && m_count % 200 == 0) {
-            GameLayer* game_layer = GameLayer::getGameLayer();
+            auto game_layer = GameLayer::getGameLayer();
             const Point& pos = this->getPosition();
             const short ang = game_layer->getAngleToMyShip(pos.x, pos.y);
             CreateBulletCommand create_bullet = { kEnemyBullet_06, -1, -1, ang, 3.0f, 0.0f, 0.0f, 3, 30, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 15, 0, 5, 0 };
@@ -662,14 +662,14 @@ void Enemy06::update2()
         m_create_bullets_com_list.push_back(create_bullet);
     }
     if (m_count == count_1 + 60 || m_count == count_1 + 340) {
-        GameLayer* game_layer = GameLayer::getGameLayer();
+        auto game_layer = GameLayer::getGameLayer();
         const Point& pos = this->getPosition();
         const short ang = game_layer->getAngleToMyShip(pos.x, pos.y);
         CreateBulletCommand create_bullet2 = { kEnemyBullet_04, -1, -1, ang, 1.8f, 0.0f, 0.0f, 4, 30, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 2, 0, 10, 15 };
         m_create_bullets_com_list.push_back(create_bullet2);
     }
     if (m_count == count_1 + 620) {
-        GameLayer* game_layer = GameLayer::getGameLayer();
+        auto game_layer = GameLayer::getGameLayer();
         const Point& pos = this->getPosition();
         const short ang = game_layer->getAngleToMyShip(pos.x, pos.y);
         CreateBulletCommand create_bullet2 = { kEnemyBullet_04, -1, -1, ang, 1.8f, 0.0f, 0.0f, 4, 30, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 4, 0, 10, 15 };
@@ -689,7 +689,7 @@ void Enemy07::update2()
         m_dy = m_speed * MathUtil::sin(m_angle);
         this->setRotation(360.0f - m_angle + 90.0f);
     } else if (m_count % 30 == 0) {
-        GameLayer* game_layer = GameLayer::getGameLayer();
+        auto game_layer = GameLayer::getGameLayer();
         const Point& pos = this->getPosition();
         const int ang = game_layer->getAngleToMyShip(pos.x, pos.y);
         if (m_angle >= 0 && m_angle < 90) {
@@ -771,7 +771,7 @@ void EnemyGround01::update2()
 {
     //// Bullets
     if (m_count > 0 && m_count % 100 == 0) {
-        GameLayer* game_layer = GameLayer::getGameLayer();
+        auto game_layer = GameLayer::getGameLayer();
         const Point& pos = this->getPosition();
         const short ang = game_layer->getAngleToMyShip(pos.x, pos.y);
         CreateBulletCommand create_bullet = { kEnemyBullet_02, -1, -1, ang, 3.0f, 0.0f, 0.0f, 1, 0, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 3, 0, 15, 0 };
@@ -785,8 +785,8 @@ void EnemyBoss01::update2()
     if (m_count > 100) {
         m_dx = MathUtil::sin(m_count % 360) * 0.7f;
     } else if (m_count == 0) {
-        GameLayer* game_layer = GameLayer::getGameLayer();
-        Sprite* life_gage = createLifeGage();
+        auto game_layer = GameLayer::getGameLayer();
+        auto life_gage = createLifeGage();
         game_layer->setBoss01LifeGage(life_gage);
 
         stopMove(30);
@@ -798,7 +798,7 @@ void EnemyBoss01::update2()
 
     //// Bullets
     if (m_count > 100) {
-        GameLayer* game_layer = GameLayer::getGameLayer();
+        auto game_layer = GameLayer::getGameLayer();
         const Point& pos = this->getPosition();
         const int count_2 = (m_count - 101) % 8600;
         const int n_lap = (m_count - 101) / 8600;
@@ -862,8 +862,8 @@ void EnemyBoss01::update2()
         appear_count_max = appear_count_min + 1000;
         if (count_2 >= appear_count_min && count_2 < appear_count_max) {
             if (count_2 == appear_count_min) {
-                Enemy* enemy1 = Enemy::createEnemy(kEnemy_09, 6, pos.x, pos.y, 0, ENEMY_09_VITALITY, ENEMY_09_SCORE, false, kItem_NULL);
-                Enemy* enemy2 = Enemy::createEnemy(kEnemy_09, 7, pos.x, pos.y, 0, ENEMY_09_VITALITY, ENEMY_09_SCORE, false, kItem_NULL);
+                auto enemy1 = Enemy::createEnemy(kEnemy_09, 6, pos.x, pos.y, 0, ENEMY_09_VITALITY, ENEMY_09_SCORE, false, kItem_NULL);
+                auto enemy2 = Enemy::createEnemy(kEnemy_09, 7, pos.x, pos.y, 0, ENEMY_09_VITALITY, ENEMY_09_SCORE, false, kItem_NULL);
                 game_layer->addChild(enemy1, GameLayer::kZOrderEnemy, GameLayer::kTagEnemy);
                 game_layer->addChild(enemy2, GameLayer::kZOrderEnemy, GameLayer::kTagEnemy);
                 std::list<Enemy*>& enemy_list = game_layer->getEnemyList();
@@ -887,8 +887,8 @@ void EnemyBoss01::update2()
         appear_count_max = appear_count_min + 950;
         if (count_2 >= appear_count_min && count_2 < appear_count_max) {
             if (count_2 == appear_count_min) {
-                Enemy* enemy1 = Enemy::createEnemy(kEnemy_09, 8, pos.x, pos.y, 0, ENEMY_09_VITALITY, ENEMY_09_SCORE, false, kItem_NULL);
-                Enemy* enemy2 = Enemy::createEnemy(kEnemy_09, 9, pos.x, pos.y, 0, ENEMY_09_VITALITY, ENEMY_09_SCORE, false, kItem_NULL);
+                auto enemy1 = Enemy::createEnemy(kEnemy_09, 8, pos.x, pos.y, 0, ENEMY_09_VITALITY, ENEMY_09_SCORE, false, kItem_NULL);
+                auto enemy2 = Enemy::createEnemy(kEnemy_09, 9, pos.x, pos.y, 0, ENEMY_09_VITALITY, ENEMY_09_SCORE, false, kItem_NULL);
                 game_layer->addChild(enemy1, GameLayer::kZOrderEnemy, GameLayer::kTagEnemy);
                 game_layer->addChild(enemy2, GameLayer::kZOrderEnemy, GameLayer::kTagEnemy);
                 std::list<Enemy*>& enemy_list = game_layer->getEnemyList();
@@ -912,8 +912,8 @@ void EnemyBoss01::update2()
         appear_count_max = appear_count_min + 1100;
         if (count_2 >= appear_count_min && count_2 < appear_count_max) {
             if (count_2 == appear_count_min) {
-                Enemy* enemy1 = Enemy::createEnemy(kEnemy_09, 10, pos.x, pos.y, 0, ENEMY_09_VITALITY, ENEMY_09_SCORE, false, kItem_NULL);
-                Enemy* enemy2 = Enemy::createEnemy(kEnemy_09, 11, pos.x, pos.y, 0, ENEMY_09_VITALITY, ENEMY_09_SCORE, false, kItem_NULL);
+                auto enemy1 = Enemy::createEnemy(kEnemy_09, 10, pos.x, pos.y, 0, ENEMY_09_VITALITY, ENEMY_09_SCORE, false, kItem_NULL);
+                auto enemy2 = Enemy::createEnemy(kEnemy_09, 11, pos.x, pos.y, 0, ENEMY_09_VITALITY, ENEMY_09_SCORE, false, kItem_NULL);
                 game_layer->addChild(enemy1, GameLayer::kZOrderEnemy, GameLayer::kTagEnemy);
                 game_layer->addChild(enemy2, GameLayer::kZOrderEnemy, GameLayer::kTagEnemy);
                 std::list<Enemy*>& enemy_list = game_layer->getEnemyList();
@@ -937,13 +937,13 @@ void EnemyBoss01::update2()
         appear_count_max = appear_count_min + 1300;
         if (count_2 >= appear_count_min && count_2 < appear_count_max) {
             if (count_2 == appear_count_min) {
-                Enemy* enemy1 = Enemy::createEnemy(kEnemy_09, 1, pos.x, pos.y, 0, ENEMY_09_VITALITY, ENEMY_09_SCORE, false, kItem_NULL);
+                auto enemy1 = Enemy::createEnemy(kEnemy_09, 1, pos.x, pos.y, 0, ENEMY_09_VITALITY, ENEMY_09_SCORE, false, kItem_NULL);
                 game_layer->addChild(enemy1, GameLayer::kZOrderEnemy, GameLayer::kTagEnemy);
                 std::list<Enemy*>& enemy_list = game_layer->getEnemyList();
                 enemy_list.push_back(enemy1);
             }
             if (count_2 == appear_count_min + 250) {
-                Enemy* enemy1 = Enemy::createEnemy(kEnemy_09, 2, pos.x, pos.y, 0, ENEMY_09_VITALITY, ENEMY_09_SCORE, false, kItem_NULL);
+                auto enemy1 = Enemy::createEnemy(kEnemy_09, 2, pos.x, pos.y, 0, ENEMY_09_VITALITY, ENEMY_09_SCORE, false, kItem_NULL);
                 game_layer->addChild(enemy1, GameLayer::kZOrderEnemy, GameLayer::kTagEnemy);
                 std::list<Enemy*>& enemy_list = game_layer->getEnemyList();
                 enemy_list.push_back(enemy1);
@@ -967,7 +967,7 @@ void EnemyBoss01::update2()
             if ((count_2 - appear_count_min) % 80 == 0) {
                 const int n = (count_2 - appear_count_min < 320) ? 1 : 2;
                 for (int i = 0; i < n; ++i) {
-                    Enemy* enemy1 = Enemy::createEnemy(kEnemy_09, 5, pos.x, pos.y, 0, ENEMY_09_VITALITY, ENEMY_09_SCORE, false, kItem_NULL);
+                    auto enemy1 = Enemy::createEnemy(kEnemy_09, 5, pos.x, pos.y, 0, ENEMY_09_VITALITY, ENEMY_09_SCORE, false, kItem_NULL);
                     game_layer->addChild(enemy1, GameLayer::kZOrderEnemy, GameLayer::kTagEnemy);
                     std::list<Enemy*>& enemy_list = game_layer->getEnemyList();
                     enemy_list.push_back(enemy1);
@@ -1111,7 +1111,7 @@ void Enemy09::update2()
                 }
             }
             if (m_count % 30 == 0) {
-                GameLayer* game_layer = GameLayer::getGameLayer();
+                auto game_layer = GameLayer::getGameLayer();
                 const Point& pos = this->getPosition();
                 const short ang = game_layer->getAngleToMyShip(pos.x, pos.y);
                 const short ang1 = (m_num == 6) ? std::min((int)ang, 270) : std::max((int)ang, 270);
@@ -1146,7 +1146,7 @@ void Enemy09::update2()
         //// Bullets: 翼
         if (m_count > 50) {
             if ((m_count - 50) % 50 == 0) {
-                GameLayer* game_layer = GameLayer::getGameLayer();
+                auto game_layer = GameLayer::getGameLayer();
                 const Point& pos = this->getPosition();
                 const short ang = game_layer->getAngleToMyShip(pos.x, pos.y) - 6 * 3;
                 for (int i = 0; i < 7; ++i) {
@@ -1182,7 +1182,7 @@ void Enemy09::update2()
             const int t1 = 0;
             const int t2 = (m_count < 600) ? 0 : 40;
             if ((m_count - 50) % 80 == t1 || (m_count - 50) % 80 == t2) {
-                GameLayer* game_layer = GameLayer::getGameLayer();
+                auto game_layer = GameLayer::getGameLayer();
                 const Point& pos = this->getPosition();
                 const short ang = game_layer->getAngleToMyShip(pos.x, pos.y);
                 const float orig_speed = 3.0f;

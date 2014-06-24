@@ -22,7 +22,7 @@ EnemyBullet* EnemyBullet::spriteWithFile(kEnemyBullet type, float x, float y, in
     float accel, float speed_end, int stop_time, int move_time, int stop_time_2,
     int angle_2, float speed_2, float accel_2, float speed_end_2, int vanish_time)
 {
-    EnemyBullet* pEnemyBullet = new EnemyBullet(x, y, angle, speed, accel, speed_end, stop_time, move_time, stop_time_2,
+    auto pEnemyBullet = new EnemyBullet(x, y, angle, speed, accel, speed_end, stop_time, move_time, stop_time_2,
         angle_2, speed_2, accel_2, speed_end_2, vanish_time);
 
     if (!pEnemyBullet) {

@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 
-class EndingLayer : public cocos2d::CCLayer
+class EndingLayer : public cocos2d::Layer
 {
 public:
     virtual bool init();

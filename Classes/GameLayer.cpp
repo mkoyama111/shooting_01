@@ -38,8 +38,8 @@ GameLayer::~GameLayer()
 
 Scene* GameLayer::scene()
 {
-    Scene* scene = Scene::create();
-    GameLayer* layer = GameLayer::create();
+    auto scene = Scene::create();
+    auto layer = GameLayer::create();
     scene->addChild(layer);
     s_game_layer = layer;
     return scene;
@@ -73,9 +73,9 @@ bool GameLayer::init()
     SimpleAudioEngine::getInstance()->preloadEffect(SE_MY_LASER_LOCK);
     SimpleAudioEngine::getInstance()->preloadEffect(SE_GET_ITEM_01);
 
-    SpriteFrameCache* sprite_frame_cache = SpriteFrameCache::getInstance();
+    auto sprite_frame_cache = SpriteFrameCache::getInstance();
     sprite_frame_cache->addSpriteFramesWithFile("shooting_01.plist");
-    SpriteBatchNode* batch_node = SpriteBatchNode::create("shooting_01.png");
+    auto batch_node = SpriteBatchNode::create("shooting_01.png");
     this->addChild(batch_node);
 
     createAnimationCache();
@@ -163,7 +163,7 @@ void GameLayer::addScore(int score)
 void GameLayer::createAnimationCache()
 {
     AnimationCache::getInstance()->destroyInstance();
-    AnimationCache* pAnimationCache = AnimationCache::getInstance();
+    auto pAnimationCache = AnimationCache::getInstance();
 
     createDamageAnimationCache(pAnimationCache, IMAGE_DAMAGE_ENEMY_01, IMAGE_ENEMY_01, ANIME_DAMAGE_ENEMY_01);
     createDamageAnimationCache(pAnimationCache, IMAGE_DAMAGE_ENEMY_02, IMAGE_ENEMY_02, ANIME_DAMAGE_ENEMY_02);
@@ -182,7 +182,7 @@ void GameLayer::createAnimationCache()
 void GameLayer::createDamageAnimationCache(cocos2d::AnimationCache* pAnimationCache,
         const char* img_1, const char* img_2, const char* name)
 {
-    Animation* animation = Animation::create();
+    auto animation = Animation::create();
     animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName(img_1));
     animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName(img_2));
     animation->setDelayPerUnit(0.4f);
@@ -192,13 +192,13 @@ void GameLayer::createDamageAnimationCache(cocos2d::AnimationCache* pAnimationCa
 
 void GameLayer::createBackground()
 {
-    Layer* background_layer = Layer::create();
-    SpriteBatchNode* batchNode = SpriteBatchNode::create(IMAGE_BACKGROUND);
+    auto background_layer = Layer::create();
+    auto batchNode = SpriteBatchNode::create(IMAGE_BACKGROUND);
     background_layer->addChild(batchNode, kZOrderBackground);
     int height = 0;
 
     for (int i = 0; i < 24; i++) {
-        Sprite* bg = Sprite::createWithTexture(batchNode->getTexture());
+        auto bg = Sprite::createWithTexture(batchNode->getTexture());
         bg->setAnchorPoint(Point(0, 0));
         bg->setPosition(Point(0, height));
         background_layer->addChild(bg, kZOrderBackground);
@@ -208,7 +208,7 @@ void GameLayer::createBackground()
 
     m_move_duration = (float)8200 / 60;
     m_move_delta_pos = Point(0, -(height - m_winSize.height));
-    MoveBy* move = MoveBy::create(m_move_duration, m_move_delta_pos);
+    auto move = MoveBy::create(m_move_duration, m_move_delta_pos);
     background_layer->runAction(move);
 }
 
@@ -222,7 +222,7 @@ void GameLayer::createParticleLayer()
 
 void GameLayer::createEnemyShadowLayer()
 {
-    Layer* enemy_shadow_layer = Layer::create();
+    auto enemy_shadow_layer = Layer::create();
     enemy_shadow_layer->setContentSize(m_winSize);
     enemy_shadow_layer->setPosition(Point(0, 0));
     this->addChild(enemy_shadow_layer, kZOrderEnemyShadow, kTagEnemyShadowLayer);
@@ -230,12 +230,12 @@ void GameLayer::createEnemyShadowLayer()
 
 void GameLayer::createLaserLayer()
 {
-    Layer* laser_layer = Layer::create();
+    auto laser_layer = Layer::create();
     laser_layer->setContentSize(m_winSize);
     laser_layer->setPosition(Point(0, 0));
     this->addChild(laser_layer, kZOrderMyLaserStreak, kTagLaserLayer);
 
-    Layer* laser_lock_layer = Layer::create();
+    auto laser_lock_layer = Layer::create();
     laser_lock_layer->setContentSize(m_winSize);
     laser_lock_layer->setPosition(Point(0, 0));
     this->addChild(laser_lock_layer, kZOrderMyLaserLock, kTagLaserLockLayer);
@@ -252,7 +252,7 @@ void GameLayer::createLabelLayer()
 
 void GameLayer::createControlLayer()
 {
-    LayerColor* layer = LayerColor::create(Color4B(140, 140, 140, 255), m_winSize.width, CONTROL_AREA_HIGHT);
+    auto layer = LayerColor::create(Color4B(140, 140, 140, 255), m_winSize.width, CONTROL_AREA_HIGHT);
     layer->setPosition(Point(0, 0));
     this->addChild(layer, kZOrderControlLayer, kTagControlLayer);
 
@@ -296,14 +296,14 @@ void GameLayer::createLifeGage()
     lbl_life->setAnchorPoint(Point(0, 0));
     this->addChild(lbl_life, kZOrderGameInfoLabel, kTagGameInfoLabel);
 
-    Sprite* life_gage_bg = Sprite::createWithSpriteFrameName(IMAGE_MY_SHIP_LIFE_GAGE_BG);
+    auto life_gage_bg = Sprite::createWithSpriteFrameName(IMAGE_MY_SHIP_LIFE_GAGE_BG);
     life_gage_bg->setAnchorPoint(Point(0, 0));
     life_gage_bg->setPosition(Point(10, CONTROL_AREA_HIGHT * 0.15f));
     this->addChild(life_gage_bg, kZOrderLifeGageBg, kTagLifeGage);
 
     for (int i = 0; i < 10; ++i) {
         int xpos = 20 + i * 28;
-        Sprite* life_gage = Sprite::createWithSpriteFrameName(IMAGE_MY_SHIP_LIFE_GAGE);
+        auto life_gage = Sprite::createWithSpriteFrameName(IMAGE_MY_SHIP_LIFE_GAGE);
         life_gage->setAnchorPoint(Point(0, 0));
         life_gage->setPosition(Point(xpos, CONTROL_AREA_HIGHT * 0.22f));
         if (i < m_my_ship_life_count) {
@@ -394,7 +394,7 @@ void GameLayer::cleanupEnemies()
                     (*itr)->getShadow()->setVisible(false);
                 }
             } else {
-                Enemy* enemy_tmp = *itr;
+                auto enemy_tmp = *itr;
                 itr = m_enemy_list.erase(itr);
                 enemy_tmp->removeFromParentAndCleanup(true);
                 continue;
@@ -416,14 +416,14 @@ void GameLayer::checkCollision()
             break;
         }
 
-        Node* pNode = static_cast<Node*>(obj);
+        auto pNode = static_cast<Node*>(obj);
         const int tag = pNode->getTag();
 
         if (tag == kTagEnemyBullet) { // 敵弾 → 自機の当たり判定
 
             if (myShipRect.containsPoint(pNode->getPosition()) && m_myShip->getSinceDamaged() == 0) {
 
-                EnemyBullet* enemy_bullet = static_cast<EnemyBullet*>(pNode);
+                auto enemy_bullet = static_cast<EnemyBullet*>(pNode);
 
                 if (!enemy_bullet->getPenetrate()) {
                     m_removed_node_vec.push_back(pNode);
@@ -457,7 +457,7 @@ void GameLayer::checkCollision()
             }
         } else if (tag == kTagEnemy || tag == kTagEnemyBoss) { // 敵機 → 自機の当たり判定
 
-            Enemy* enemy = static_cast<Enemy*>(pNode);
+            auto enemy = static_cast<Enemy*>(pNode);
             if (enemy->getFinished() || enemy->getOnBackground()) {
                 continue;
             }
@@ -512,7 +512,7 @@ void GameLayer::createExplosion(kTag tag, cocos2d::Point point, bool play_se)
             SimpleAudioEngine::getInstance()->playEffect(SE_MY_SHIP_EXPLOSION);
         }
         if (m_my_ship_life_count == 0) {
-            ParticleFire* fire = ParticleFire::create();
+            auto fire = ParticleFire::create();
             fire->setScale(0.2f);
             fire->setPosition(point);
             m_particle_layer->addChild(fire);
@@ -565,19 +565,19 @@ void GameLayer::resetWeapon()
 void GameLayer::updateLabel()
 {
     if (m_score > m_hi_score) {
-         Label* lbl = static_cast<Label*>(this->getChildByTag(kTagHiScoreLabel));
+         auto lbl = static_cast<Label*>(this->getChildByTag(kTagHiScoreLabel));
          lbl->setString(String::createWithFormat("%d", m_score)->getCString());
     }
     {
         std::string aaa("abc");
-        Label* lbl = static_cast<Label*>(this->getChildByTag(kTagScoreLabel));
+        auto lbl = static_cast<Label*>(this->getChildByTag(kTagScoreLabel));
         lbl->setString(String::createWithFormat("%d", m_score)->getCString());
     }
 }
 
 void GameLayer::resetGame()
 {
-    Scene* scene = GameLayer::scene();
+    auto scene = GameLayer::scene();
     Director::getInstance()->replaceScene(scene);
 }
 
@@ -618,9 +618,9 @@ void GameLayer::gameOver()
 #endif
         back_label->setColor(Color3B(255, 255, 255));
         back_label->setOpacity(0);
-        MenuItemLabel* back_btn = MenuItemLabel::create(back_label, CC_CALLBACK_1(GameLayer::backToTitle, this));
+        auto back_btn = MenuItemLabel::create(back_label, CC_CALLBACK_1(GameLayer::backToTitle, this));
         back_btn->setPosition(Point(m_winSize.width * 0.5f, m_winSize.height * 0.45f));
-        Menu* menu = Menu::create(back_btn, NULL);
+        auto menu = Menu::create(back_btn, NULL);
         menu->setPosition(Point::ZERO);
         m_label_layer->addChild(menu, kZOrderGameInfoLabel, kTagGameInfoLabel);
         back_label->runAction(CCSequence::create(
@@ -656,21 +656,21 @@ void GameLayer::gameClear()
 
 void GameLayer::backToTitle(cocos2d::Ref* pSender)
 {
-    Scene* scene = TitleLayer::scene();
-    TransitionFade* transition = TransitionFade::create(1.0f, scene);
+    auto scene = TitleLayer::scene();
+    auto transition = TransitionFade::create(1.0f, scene);
     Director::getInstance()->replaceScene(transition);
 }
 
 void GameLayer::moveToEnding(float dt)
 {
-    Scene* scene = EndingLayer::scene();
-    TransitionFade* transition = TransitionFade::create(6.0f, scene);
+    auto scene = EndingLayer::scene();
+    auto transition = TransitionFade::create(6.0f, scene);
     Director::getInstance()->replaceScene(transition);
 }
 
 void GameLayer::saveHighScore()
 {
-    UserDefault* user_default = UserDefault::getInstance();
+    auto user_default = UserDefault::getInstance();
     const int old_high_score = user_default->getIntegerForKey("HighScore", 0);
     if (m_score > old_high_score) {
         user_default->setIntegerForKey("HighScore", m_score);

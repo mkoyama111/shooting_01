@@ -7,11 +7,11 @@ USING_NS_CC;
 
 Laser::Laser(int streak_tag, Enemy* enemy) : m_enemy(enemy),  m_canceled(false), m_streak_tag(streak_tag), m_init(false)
 {
-    GameLayer* game_layer = GameLayer::getGameLayer();
-    Layer* laser_lock_layer = (Layer*)game_layer->getChildByTag(GameLayer::kTagLaserLockLayer);
+    auto game_layer = GameLayer::getGameLayer();
+    auto laser_lock_layer = (Layer*)game_layer->getChildByTag(GameLayer::kTagLaserLockLayer);
 
     if (laser_lock_layer) {
-        Sprite* lock_mark = Sprite::createWithSpriteFrameName(IMAGE_MY_LASER_LOCK);
+        auto lock_mark = Sprite::createWithSpriteFrameName(IMAGE_MY_LASER_LOCK);
         lock_mark->setPosition(enemy->getPosition());
         laser_lock_layer->addChild(lock_mark, GameLayer::kZOrderMyLaserLock, streak_tag);
 
@@ -19,7 +19,7 @@ Laser::Laser(int streak_tag, Enemy* enemy) : m_enemy(enemy),  m_canceled(false),
             float move_duration = 0;
             Point move_delta_pos;
             game_layer->getMoveBackgroundParam(move_duration, move_delta_pos);
-            MoveBy* move = MoveBy::create(move_duration, move_delta_pos);
+            auto move = MoveBy::create(move_duration, move_delta_pos);
             lock_mark->runAction(move);
         } else {
             enemy->setLaserLockMark(lock_mark);
@@ -30,7 +30,7 @@ Laser::Laser(int streak_tag, Enemy* enemy) : m_enemy(enemy),  m_canceled(false),
 
 Laser* Laser::spriteWithFile(kMyLaser type, int streak_tag, Enemy* enemy)
 {
-    Laser* pLaser = new Laser(streak_tag, enemy);
+    auto pLaser = new Laser(streak_tag, enemy);
     if (pLaser && pLaser->initWithSpriteFrameName(IMAGE_MY_BULLET_LASER)) {
 
         BlendFunc blend;
@@ -48,8 +48,8 @@ Laser* Laser::spriteWithFile(kMyLaser type, int streak_tag, Enemy* enemy)
 
 void Laser::initStreak(cocos2d::Point point)
 {
-    GameLayer* game_layer = GameLayer::getGameLayer();
-    Layer* laser_layer = (Layer*)game_layer->getChildByTag(GameLayer::kTagLaserLayer);
+    auto game_layer = GameLayer::getGameLayer();
+    auto laser_layer = (Layer*)game_layer->getChildByTag(GameLayer::kTagLaserLayer);
 
     if (laser_layer) {
         MotionStreak* streak = MotionStreak::create(
@@ -69,10 +69,10 @@ void Laser::initStreak(cocos2d::Point point)
 void Laser::update(float dt)
 {
     if (m_init) {
-        GameLayer* game_layer = GameLayer::getGameLayer();
-        Layer* laser_layer = (Layer*)game_layer->getChildByTag(GameLayer::kTagLaserLayer);
+        auto game_layer = GameLayer::getGameLayer();
+        auto laser_layer = (Layer*)game_layer->getChildByTag(GameLayer::kTagLaserLayer);
         if (laser_layer) {
-            Node* streak = laser_layer->getChildByTag(m_streak_tag);
+            auto streak = laser_layer->getChildByTag(m_streak_tag);
             if (streak) {
                 streak->setPosition(this->getPosition());
             }

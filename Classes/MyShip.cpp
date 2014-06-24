@@ -69,7 +69,7 @@ bool MyShip::damage(int point)
     m_since_damaged = MY_SHIP_MUTEKI_TIME_AFTER_DAMAGE;
 
     if (m_vitality <= 0) {
-        GameLayer* game_layer = GameLayer::getGameLayer();
+        auto game_layer = GameLayer::getGameLayer();
         m_my_ship_life_count = game_layer->minusMyShipLife();
         m_vitality = MY_SHIP_VITALITY;
         return true;
@@ -159,32 +159,32 @@ void MyShip::update(float dt)
 
 void MyShip::createBullets01()
 {
-    GameLayer* game_layer = GameLayer::getGameLayer();
+    auto game_layer = GameLayer::getGameLayer();
 
     const int x = this->getPosition().x;
     const int y = this->getPosition().y;
 
-    MyBullet* my_bullet1 = MyBullet::spriteWithFile(kMyBullet_01, 90,  MY_BULLET_01_SPEED, 0);
+    auto my_bullet1 = MyBullet::spriteWithFile(kMyBullet_01, 90,  MY_BULLET_01_SPEED, 0);
     my_bullet1->setPosition(Point(x - 5, y));
     game_layer->addChild(my_bullet1, GameLayer::kZOrderMyBullet, GameLayer::kTagMyBullet);
 
-    MyBullet* my_bullet2 = MyBullet::spriteWithFile(kMyBullet_01, 90,  MY_BULLET_01_SPEED, 0);
+    auto my_bullet2 = MyBullet::spriteWithFile(kMyBullet_01, 90,  MY_BULLET_01_SPEED, 0);
     my_bullet2->setPosition(Point(x + 5, y));
     game_layer->addChild(my_bullet2, GameLayer::kZOrderMyBullet, GameLayer::kTagMyBullet);
 }
 
 void MyShip::createBullets02()
 {
-    GameLayer* game_layer = GameLayer::getGameLayer();
+    auto game_layer = GameLayer::getGameLayer();
 
     const int x = this->getPosition().x;
     const int y = this->getPosition().y;
 
-    MyBullet* my_bullet1 = MyBullet::spriteWithFile(kMyBullet_02, 90,  MY_BULLET_02_SPEED, 0);
+    auto my_bullet1 = MyBullet::spriteWithFile(kMyBullet_02, 90,  MY_BULLET_02_SPEED, 0);
     my_bullet1->setPosition(Point(x - 15, y));
     game_layer->addChild(my_bullet1, GameLayer::kZOrderMyBullet, GameLayer::kTagMyBullet);
 
-    MyBullet* my_bullet2 = MyBullet::spriteWithFile(kMyBullet_02, 90,  MY_BULLET_02_SPEED, 0);
+    auto my_bullet2 = MyBullet::spriteWithFile(kMyBullet_02, 90,  MY_BULLET_02_SPEED, 0);
     my_bullet2->setPosition(Point(x + 15, y));
     game_layer->addChild(my_bullet2, GameLayer::kZOrderMyBullet, GameLayer::kTagMyBullet);
 }
@@ -192,40 +192,40 @@ void MyShip::createBullets02()
 
 void MyShip::createBullets03()
 {
-    GameLayer* game_layer = GameLayer::getGameLayer();
+    auto game_layer = GameLayer::getGameLayer();
 
-    MyBullet* my_bullet1 = MyBullet::spriteWithFile(kMyBullet_03, 75/*72*/,  MY_BULLET_03_SPEED, 0);
+    auto my_bullet1 = MyBullet::spriteWithFile(kMyBullet_03, 75/*72*/,  MY_BULLET_03_SPEED, 0);
     my_bullet1->setPosition(this->getPosition());
     game_layer->addChild(my_bullet1, GameLayer::kZOrderMyBullet, GameLayer::kTagMyBullet);
 
-    MyBullet* my_bullet2 = MyBullet::spriteWithFile(kMyBullet_03, 105/*108*/,  MY_BULLET_03_SPEED, 0);
+    auto my_bullet2 = MyBullet::spriteWithFile(kMyBullet_03, 105/*108*/,  MY_BULLET_03_SPEED, 0);
     my_bullet2->setPosition(this->getPosition());
     game_layer->addChild(my_bullet2, GameLayer::kZOrderMyBullet, GameLayer::kTagMyBullet);
 }
 
 void MyShip::setLaser()
 {
-    GameLayer* game_layer = GameLayer::getGameLayer();
+    auto game_layer = GameLayer::getGameLayer();
 
     for (auto elem : m_laser_list) {
-        Laser* laser = elem;
+        auto laser = elem;
         if (laser->getCanceled()) {
             continue;
         }
-        Enemy* enemy = laser->getEnemy();
+        auto enemy = laser->getEnemy();
         if (enemy->getFinished()) {
-            Layer* laser_lock_layer = (Layer*)game_layer->getChildByTag(GameLayer::kTagLaserLockLayer);
+            auto laser_lock_layer = (Layer*)game_layer->getChildByTag(GameLayer::kTagLaserLockLayer);
             if (laser_lock_layer) {
-                Node* lock_mark = laser_lock_layer->getChildByTag(laser->getStreakTag());
+                auto lock_mark = laser_lock_layer->getChildByTag(laser->getStreakTag());
                 lock_mark->setVisible(false);
             }
             laser->setCanceled(true);
         }
     }
 
-    Layer* laser_layer = (Layer*)game_layer->getChildByTag(GameLayer::kTagLaserLayer);
+    auto laser_layer = (Layer*)game_layer->getChildByTag(GameLayer::kTagLaserLayer);
     if (laser_layer) {
-        std::list<Enemy*>& enemy_list = game_layer->getEnemyList();
+        auto& enemy_list = game_layer->getEnemyList();
         int i = 0;
 
         for (auto elem : enemy_list) {
@@ -242,7 +242,7 @@ void MyShip::setLaser()
                 elem->setLaserLocked(true);
                 SimpleAudioEngine::getInstance()->playEffect(SE_MY_LASER_LOCK);
                 const int tag = m_count + i;
-                Laser* laser = Laser::spriteWithFile(kMyLaser_01, tag, elem);
+                auto laser = Laser::spriteWithFile(kMyLaser_01, tag, elem);
                 laser_layer->addChild(laser, GameLayer::kZOrderMyBullet);
                 m_laser_list.push_back(laser);
                 i++;
@@ -254,14 +254,14 @@ void MyShip::setLaser()
 void MyShip::launchLaser()
 {
     for (auto elem : m_laser_list) {
-        Laser* laser = elem;
-        Enemy* enemy = laser->getEnemy();
+        auto laser = elem;
+        auto enemy = laser->getEnemy();
         if (enemy->getFinished() || laser->getCanceled()) {
 
-            GameLayer* game_layer = GameLayer::getGameLayer();
-            Layer* laser_lock_layer = (Layer*)game_layer->getChildByTag(GameLayer::kTagLaserLockLayer);
+            auto game_layer = GameLayer::getGameLayer();
+            auto laser_lock_layer = (Layer*)game_layer->getChildByTag(GameLayer::kTagLaserLockLayer);
             if (laser_lock_layer) {
-                Node* lock_mark = laser_lock_layer->getChildByTag(laser->getStreakTag());
+                auto lock_mark = laser_lock_layer->getChildByTag(laser->getStreakTag());
                 if (lock_mark) {
                     lock_mark->removeFromParentAndCleanup(true);
                 }
@@ -272,7 +272,7 @@ void MyShip::launchLaser()
             laser->setPosition(this->getPosition());
             laser->initStreak(this->getPosition());
 
-            PointArray* p_array = PointArray::create(6);
+            auto p_array = PointArray::create(6);
             {
                 const float dx = (this->getPosition().x > enemy->getPosition().x) ? 5.0f : -5.0f;
                 const float dy = (this->getPosition().y > enemy->getPosition().y) ? 250.0f : -250.0f;
@@ -284,11 +284,11 @@ void MyShip::launchLaser()
                 p_array->addControlPoint(Point(enemy->getPosition().x - dx , enemy->getPosition().y));
                 p_array->addControlPoint(Point(enemy->getPosition().x, enemy->getPosition().y - dy2));
             }
-            CardinalSplineTo* spline = CardinalSplineTo::create(MY_LASER_SPLINE_DURATION, p_array, 0.0f);
+            auto spline = CardinalSplineTo::create(MY_LASER_SPLINE_DURATION, p_array, 0.0f);
 
             auto funcN = CallFuncN::create(CC_CALLBACK_1(MyShip::launchLaserCallback, this, (void*)enemy));
             auto remove = RemoveSelf::create();
-            FiniteTimeAction* seq = Sequence::create(spline, funcN, remove, NULL);
+            auto seq = Sequence::create(spline, funcN, remove, NULL);
 
             laser->runAction(seq);
 
@@ -300,9 +300,9 @@ void MyShip::launchLaser()
 
 void MyShip::launchLaserCallback(cocos2d::Node* sender, void* target)
 {
-    GameLayer* game_layer = GameLayer::getGameLayer();
+    auto game_layer = GameLayer::getGameLayer();
 
-    Enemy* enemy = (Enemy*)target;
+    auto enemy = (Enemy*)target;
     if (enemy) {
         if (!enemy->getFinished()) {
             if (enemy->damage(MY_LASER_DAMAGE)) {
@@ -315,19 +315,19 @@ void MyShip::launchLaserCallback(cocos2d::Node* sender, void* target)
         enemy->setLaserLocked(false);
     }
 
-    Laser* laser = (Laser*)sender;
+    auto laser = (Laser*)sender;
 
-    Layer* laser_lock_layer = (Layer*)game_layer->getChildByTag(GameLayer::kTagLaserLockLayer);
+    auto laser_lock_layer = (Layer*)game_layer->getChildByTag(GameLayer::kTagLaserLockLayer);
     if (laser_lock_layer) {
-        Node* lock_mark = laser_lock_layer->getChildByTag(laser->getStreakTag());
+        auto lock_mark = laser_lock_layer->getChildByTag(laser->getStreakTag());
         if (lock_mark) {
             lock_mark->removeFromParentAndCleanup(true);
         }
     }
 
-    Layer* laser_layer = (Layer*)game_layer->getChildByTag(GameLayer::kTagLaserLayer);
+    auto laser_layer = (Layer*)game_layer->getChildByTag(GameLayer::kTagLaserLayer);
     if (laser_layer) {
-        Node* streak = laser_layer->getChildByTag(laser->getStreakTag());
+        auto streak = laser_layer->getChildByTag(laser->getStreakTag());
         if (streak) {
             streak->removeFromParentAndCleanup(true);
         }

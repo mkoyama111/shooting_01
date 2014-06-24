@@ -7,8 +7,8 @@ USING_NS_CC;
 
 Scene* EndingLayer::scene()
 {
-    Scene* scene = Scene::create();
-    EndingLayer* layer = EndingLayer::create();
+    auto scene = Scene::create();
+    auto layer = EndingLayer::create();
     scene->addChild(layer);
     return scene;
 }
@@ -82,9 +82,9 @@ bool EndingLayer::init()
         back_label->setColor(Color3B(255, 255, 255));
         back_label->setOpacity(0);
 
-        MenuItemLabel* back_btn = MenuItemLabel::create(back_label, CC_CALLBACK_1(EndingLayer::backToTitle, this));
+        auto back_btn = MenuItemLabel::create(back_label, CC_CALLBACK_1(EndingLayer::backToTitle, this));
         back_btn->setPosition(Point(winSize.width * 0.5f, winSize.height * 0.40f));
-        Menu* menu = Menu::create(back_btn, NULL);
+        auto menu = Menu::create(back_btn, NULL);
 
         menu->setPosition(Point::ZERO);
         this->addChild(menu);
@@ -117,7 +117,7 @@ bool EndingLayer::init()
 
 void EndingLayer::backToTitle(cocos2d::Ref* pSender)
 {
-    Scene* scene = TitleLayer::scene();
-    TransitionFade* transition = TransitionFade::create(1.0f, scene);
+    auto scene = TitleLayer::scene();
+    auto transition = TransitionFade::create(1.0f, scene);
     Director::getInstance()->replaceScene(transition);
 }

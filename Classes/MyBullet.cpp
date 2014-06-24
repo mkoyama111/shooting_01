@@ -31,7 +31,7 @@ MyBullet* MyBullet::spriteWithFile(kMyBullet type, int angle, float speed, float
         break;
     }
 
-    MyBullet* pMyBullet = new MyBullet(angle, speed, accel);
+    auto pMyBullet = new MyBullet(angle, speed, accel);
 
     if (pMyBullet && pMyBullet->initWithSpriteFrameName(sprite_frame_name.c_str())) {
         pMyBullet->autorelease();
