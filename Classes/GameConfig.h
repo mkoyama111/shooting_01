@@ -145,7 +145,7 @@ static const float MY_LASER_LOCKING_DISTANCE = 300.0f;
 static const float MY_LASER_FADE_TIME        = 0.5f;
 static const float MY_LASER_STROKE_WIDTH     = 9.0f;
 static const float MY_LASER_SPLINE_DURATION  = 0.8f;
-static const int DURATION_OF_SET_MY_LASER    = 10;
+static const int DURATION_OF_SET_MY_LASER    = 60;
 static const int MY_LASER_DAMAGE             = 20;
 
 // 敵機01
