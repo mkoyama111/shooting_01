@@ -10,7 +10,7 @@ Windows, Android, iPhoneに対応しています。
 Windows 8.1, Android実機(4.1.2), iPhoneシミュレータ上で動作確認。
 
 # 開発環境
-ゲームエンジン: Cocos2d-x v3.0
+ゲームエンジン: Cocos2d-x v3.0  
 Windows版: Visual C++ 2012  
 Android版: Eclipse ADT v22.6.2, Android NDK r9d, Android API Level 16  
 iPhone版: Xcode Vession 5.1.1  
