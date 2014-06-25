@@ -59,6 +59,8 @@ void EnemyControllerState::createEnemyByCommand(std::list<Enemy*>& enemy_list)
             } else {
                 if (itr->type >= kEnemyBoss_01) {
                     game_layer->addChild(enemy1, GameLayer::kZOrderEnemy, GameLayer::kTagEnemyBoss);
+                } else if (itr->type >= kEnemy_05 && itr->num > 1) {
+                    game_layer->addChild(enemy1, GameLayer::kZOrderEnemy2, GameLayer::kTagEnemy);
                 } else {
                     game_layer->addChild(enemy1, GameLayer::kZOrderEnemy, GameLayer::kTagEnemy);
                 }
@@ -84,40 +86,34 @@ void EnemyControllerState01::createEnemy(const EnemyController* context, int cou
         const int vitality = ENEMY_GROUND_01_VITALITY;
         const int score = ENEMY_GROUND_01_SCORE;
         CreateEnemyCommand com_list[] = {
-            {  450, enemy_type,  1, width * 0.21f, height, 0, vitality, score, true, kItem_NULL },
-            {  460, enemy_type,  2, width * 0.86f, height, 0, vitality, score, true, kItem_NULL },
-            {  700, enemy_type,  3, width * 0.18f, height, 0, vitality, score, true, kItem_NULL },
-            {  750, enemy_type,  4, width * 0.08f, height, 0, vitality, score, true, kItem_NULL },
-            {  800, enemy_type,  5, width * 0.35f, height, 0, vitality, score, true, kItem_NULL },
-            {  850, enemy_type,  6, width * 0.88f, height, 0, vitality, score, true, kItem_NULL },
-            { 1000, enemy_type,  7, width * 0.10f, height, 0, vitality, score, true, kItem_NULL },
-            { 1050, enemy_type,  8, width * 0.20f, height, 0, vitality, score, true, kItem_NULL },
-            { 1200, enemy_type,  9, width * 0.35f, height, 0, vitality, score, true, kItem_NULL },
-            { 1250, enemy_type, 10, width * 0.15f, height, 0, vitality, score, true, kItem_NULL },
-            { 1300, enemy_type, 11, width * 0.20f, height, 0, vitality, score, true, kItem_NULL },
-            { 1350, enemy_type, 12, width * 0.10f, height, 0, vitality, score, true, kItem_NULL },
-            { 1700, enemy_type, 13, width * 0.55f, height, 0, vitality, score, true, kItem_NULL },
-            { 1750, enemy_type, 14, width * 0.65f, height, 0, vitality, score, true, kItem_NULL },
-            { 2600, enemy_type, 15, width * 0.90f, height, 0, vitality, score, true, kItem_NULL },
-            { 2600, enemy_type, 16, width * 0.20f, height, 0, vitality, score, true, kItem_NULL },
-            { 2700, enemy_type, 17, width * 0.70f, height, 0, vitality, score, true, kItem_NULL },
-            { 2750, enemy_type, 18, width * 0.10f, height, 0, vitality, score, true, kItem_NULL },
-            { 2800, enemy_type, 19, width * 0.85f, height, 0, vitality, score, true, kItem_NULL },
-            { 2850, enemy_type, 20, width * 0.45f, height, 0, vitality, score, true, kItem_NULL },
-            { 4400, enemy_type, 21, width * 0.10f, height, 0, vitality, score, true, kItem_NULL },
-            { 4450, enemy_type, 22, width * 0.15f, height, 0, vitality, score, true, kItem_NULL },
-            { 4600, enemy_type, 23, width * 0.80f, height, 0, vitality, score, true, kItem_NULL },
-            { 4650, enemy_type, 24, width * 0.90f, height, 0, vitality, score, true, kItem_NULL },
-            { 4800, enemy_type, 25, width * 0.21f, height, 0, vitality, score, true, kItem_NULL },
-            { 4850, enemy_type, 26, width * 0.13f, height, 0, vitality, score, true, kItem_NULL },
-            { 5000, enemy_type, 27, width * 0.88f, height, 0, vitality, score, true, kItem_NULL },
-            { 5050, enemy_type, 28, width * 0.74f, height, 0, vitality, score, true, kItem_NULL },
-            { 5200, enemy_type, 29, width * 0.10f, height, 0, vitality, score, true, kItem_NULL },
-            { 5250, enemy_type, 30, width * 0.20f, height, 0, vitality, score, true, kItem_NULL },
-            { 5250, enemy_type, 31, width * 0.73f, height, 0, vitality, score, true, kItem_NULL },
-            { 5300, enemy_type, 32, width * 0.91f, height, 0, vitality, score, true, kItem_NULL },
-            { 7900, enemy_type, 33, width * 0.81f, height, 0, vitality, score, true, kItem_NULL },
-            { 7950, enemy_type, 34, width * 0.21f, height, 0, vitality, score, true, kItem_NULL },
+            {  450, enemy_type, 1, width * 0.18f, height, 0, vitality, score, true, kItem_NULL },
+            {  460, enemy_type, 1, width * 0.88f, height, 0, vitality, score, true, kItem_NULL },
+            {  700, enemy_type, 1, width * 0.18f, height, 0, vitality, score, true, kItem_NULL },
+            {  750, enemy_type, 1, width * 0.93f, height, 0, vitality, score, true, kItem_NULL },
+            {  800, enemy_type, 1, width * 0.28f, height, 0, vitality, score, true, kItem_NULL },
+            {  850, enemy_type, 1, width * 0.88f, height, 0, vitality, score, true, kItem_NULL },
+            { 1000, enemy_type, 1, width * 0.90f, height, 0, vitality, score, true, kItem_NULL },
+            { 1050, enemy_type, 1, width * 0.10f, height, 0, vitality, score, true, kItem_NULL },
+            { 1200, enemy_type, 1, width * 0.30f, height, 0, vitality, score, true, kItem_NULL },
+            { 1250, enemy_type, 1, width * 0.95f, height, 0, vitality, score, true, kItem_NULL },
+            { 1300, enemy_type, 1, width * 0.10f, height, 0, vitality, score, true, kItem_NULL },
+            { 1350, enemy_type, 1, width * 0.90f, height, 0, vitality, score, true, kItem_NULL },
+            { 1750, enemy_type, 1, width * 0.85f, height, 0, vitality, score, true, kItem_NULL },
+            { 1750, enemy_type, 1, width * 0.15f, height, 0, vitality, score, true, kItem_NULL },
+            { 2600, enemy_type, 1, width * 0.90f, height, 0, vitality, score, true, kItem_NULL },
+            { 2600, enemy_type, 1, width * 0.20f, height, 0, vitality, score, true, kItem_NULL },
+            { 2700, enemy_type, 1, width * 0.70f, height, 0, vitality, score, true, kItem_NULL },
+            { 2750, enemy_type, 1, width * 0.10f, height, 0, vitality, score, true, kItem_NULL },
+            { 2800, enemy_type, 1, width * 0.85f, height, 0, vitality, score, true, kItem_NULL },
+            { 2850, enemy_type, 1, width * 0.35f, height, 0, vitality, score, true, kItem_NULL },
+            { 4600, enemy_type, 1, width * 0.85f, height, 0, vitality, score, true, kItem_NULL },
+            { 4650, enemy_type, 1, width * 0.10f, height, 0, vitality, score, true, kItem_NULL },
+            { 4900, enemy_type, 1, width * 0.12f, height, 0, vitality, score, true, kItem_NULL },
+            { 4950, enemy_type, 1, width * 0.93f, height, 0, vitality, score, true, kItem_NULL },
+            { 5200, enemy_type, 1, width * 0.10f, height, 0, vitality, score, true, kItem_NULL },
+            { 5250, enemy_type, 1, width * 0.91f, height, 0, vitality, score, true, kItem_NULL },
+            { 7900, enemy_type, 1, width * 0.81f, height, 0, vitality, score, true, kItem_NULL },
+            { 7950, enemy_type, 1, width * 0.21f, height, 0, vitality, score, true, kItem_NULL },
          };
         for (int i = 0; i < sizeof(com_list) / sizeof(com_list[0]); i++) {
             m_create_enemy_com_list.push_back(com_list[i]);
@@ -329,6 +325,9 @@ void EnemyControllerState01::createEnemy(const EnemyController* context, int cou
 
 #if 1
     if (m_state_count == 8300) {
+        auto game_layer = GameLayer::getGameLayer();
+        game_layer->stopBackgroundScroll();
+
         if (GameLayer::getBackGroundMusic()) {
             if (CocosDenshion::SimpleAudioEngine::getInstance()->isBackgroundMusicPlaying()) {
                 CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();

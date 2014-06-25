@@ -23,7 +23,7 @@ static const float DURATION_AFTER_GAME_OVER = 20.0f;
 static GameLayer* s_game_layer;
 static int s_back_ground_music = BACK_GROUND_MUSIC;
 
-GameLayer::GameLayer() : m_boss_01_life_gage(NULL), m_myShip(NULL), m_particle_layer(NULL), m_label_layer(NULL),
+GameLayer::GameLayer() : m_boss_01_life_gage(NULL), m_myShip(NULL), m_particle_layer(NULL), m_background_layer(NULL), m_label_layer(NULL),
     m_move_delta_pos(Point::ZERO), m_enemy_controller(new EnemyController), m_game_over(false), m_game_clear(false),
     m_count(0), m_hi_score(0), m_score(0), m_my_ship_life_count(MY_SHIP_LIFE_COUNT), m_move_duration(0),
     m_since_game_over(0)
@@ -160,6 +160,11 @@ void GameLayer::addScore(int score)
     m_score += score;
 }
 
+void GameLayer::stopBackgroundScroll()
+{
+    m_background_layer->stopAllActions();
+}
+
 void GameLayer::createAnimationCache()
 {
     AnimationCache::getInstance()->destroyInstance();
@@ -192,24 +197,24 @@ void GameLayer::createDamageAnimationCache(cocos2d::AnimationCache* pAnimationCa
 
 void GameLayer::createBackground()
 {
-    auto background_layer = Layer::create();
     auto batchNode = SpriteBatchNode::create(IMAGE_BACKGROUND);
-    background_layer->addChild(batchNode, kZOrderBackground);
+    m_background_layer = Layer::create();
+    m_background_layer->addChild(batchNode, kZOrderBackground);
     int height = 0;
 
-    for (int i = 0; i < 24; i++) {
+    for (int i = 0; i < 26; i++) {
         auto bg = Sprite::createWithTexture(batchNode->getTexture());
         bg->setAnchorPoint(Point(0, 0));
         bg->setPosition(Point(0, height));
-        background_layer->addChild(bg, kZOrderBackground);
+        m_background_layer->addChild(bg, kZOrderBackground);
         height += bg->getContentSize().height;
     }
-    this->addChild(background_layer, kZOrderBackground, kTagBackgroundLayer);
+    this->addChild(m_background_layer, kZOrderBackground, kTagBackgroundLayer);
 
-    m_move_duration = (float)8200 / 60;
+    m_move_duration = (float)9000 / 60;
     m_move_delta_pos = Point(0, -(height - m_winSize.height));
     auto move = MoveBy::create(m_move_duration, m_move_delta_pos);
-    background_layer->runAction(move);
+    m_background_layer->runAction(move);
 }
 
 void GameLayer::createParticleLayer()

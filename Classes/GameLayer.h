@@ -41,6 +41,7 @@ public:
         kZOrderEnemyShadow,
         kZOrderMyShip,
         kZOrderEnemy,
+        kZOrderEnemy2,
         kZOrderMyLaserLock,
         kZOrderMyBullet,
         kZOrderEnemyBullet,
@@ -85,6 +86,7 @@ public:
     int plusMyShipLife();
     int minusMyShipLife();
     void addScore(int score);
+    void stopBackgroundScroll();
 
 protected:
 
@@ -126,6 +128,7 @@ protected:
 
     MyShip* m_myShip;
     cocos2d::Layer* m_particle_layer;
+    cocos2d::Layer* m_background_layer;
     cocos2d::Layer* m_label_layer;
     cocos2d::Point m_move_delta_pos;
 

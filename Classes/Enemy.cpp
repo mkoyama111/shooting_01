@@ -683,7 +683,7 @@ void Enemy07::update2()
     if (m_count == 0) {
         m_speed = 2.0f;
     }
-    if (m_count > 1400) {
+    if (m_count > 1200) {
         m_angle = 270;
         m_dx = m_speed * MathUtil::cos(m_angle);
         m_dy = m_speed * MathUtil::sin(m_angle);
