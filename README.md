@@ -13,7 +13,7 @@ Windows 8.1, Android実機(4.1.2), iPhoneシミュレータ上で動作確認。
 ゲームエンジン: Cocos2d-x v3.0  
 Windows版: Visual C++ 2012  
 Android版: Eclipse ADT v22.6.2, Android NDK r9d, Android API Level 16  
-iPhone版: Xcode Vession 5.1.1  
+iPhone版: Xcode Version 5.1.1  
 
 # 遊び方
 * ゲーム開始画面で「ゲームスタート」をタッチするとゲームが開始します。
