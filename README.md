@@ -2,7 +2,7 @@ shooting_01
 ===========
 
 # 概要
-cocos2d-x v3.0を用いた縦スクロールシューティングゲームです。  
+cocos2d-x v3.0により開発された縦スクロールシューティングゲームです。  
 Windows, Android, iPhoneに対応しています。  
 ゲームプログラミンの練習として作成したものです。
 
@@ -10,8 +10,9 @@ Windows, Android, iPhoneに対応しています。
 Windows 8.1, Android実機(4.1.2), iPhoneシミュレータ上で動作確認。
 
 # 開発環境
-Windows版: Visual Studio 2012  
-Android版: Eclipse ADT v22.6.2, Android API Level 16  
+ゲームエンジン: Cocos2d-x v3.0
+Windows版: Visual C++ 2012  
+Android版: Eclipse ADT v22.6.2, Android NDK r9d, Android API Level 16  
 iPhone版: Xcode Vession 5.1.1  
 
 # 遊び方
