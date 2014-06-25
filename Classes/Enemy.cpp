@@ -806,7 +806,7 @@ void EnemyBoss01::update2()
         int appear_count_min = 0;
         int appear_count_max = 0;
 
-#if 1
+
         //// bullets pattern: 18way
         appear_count_min = appear_count_max;
         appear_count_max = appear_count_min + 650;
@@ -818,9 +818,8 @@ void EnemyBoss01::update2()
             }
         }
         appear_count_max += 100;
-#endif
 
-#if 1
+
         //// bullets pattern: らせん
         appear_count_min = appear_count_max;
         appear_count_max = appear_count_min + 1080;
@@ -842,9 +841,8 @@ void EnemyBoss01::update2()
             }
         }
         appear_count_max += 60;
-#endif
 
-#if 1
+
         //// bullets pattern: ランダム
         appear_count_min = appear_count_max;
         appear_count_max = appear_count_min + 800;
@@ -854,9 +852,8 @@ void EnemyBoss01::update2()
             m_create_bullets_com_list.push_back(create_bullet);
         }
         appear_count_max += 10;
-#endif
 
-#if 1
+
         //// bullets pattern: 棒
         appear_count_min = appear_count_max;
         appear_count_max = appear_count_min + 1000;
@@ -879,9 +876,8 @@ void EnemyBoss01::update2()
             }
         }
         appear_count_max += 10;
-#endif
 
-#if 1
+
         //// bullets pattern: 翼
         appear_count_min = appear_count_max;
         appear_count_max = appear_count_min + 950;
@@ -904,9 +900,8 @@ void EnemyBoss01::update2()
             }
         }
         appear_count_max += 10;
-#endif
 
-#if 1
+
         //// bullets pattern: 回転円
         appear_count_min = appear_count_max;
         appear_count_max = appear_count_min + 1100;
@@ -929,9 +924,8 @@ void EnemyBoss01::update2()
             }
         }
         appear_count_max += 10;
-#endif
 
-#if 1
+
         //// bullets pattern: 上下移動砲台
         appear_count_min = appear_count_max;
         appear_count_max = appear_count_min + 1300;
@@ -957,9 +951,8 @@ void EnemyBoss01::update2()
             }
         }
         appear_count_max += 100;
-#endif
 
-#if 1
+
         //// bullets pattern: 後方3way
         appear_count_min = appear_count_max;
         appear_count_max = appear_count_min + 1050;
@@ -982,7 +975,6 @@ void EnemyBoss01::update2()
             }
         }
         appear_count_max += 320;
-#endif
     }
 }
 

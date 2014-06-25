@@ -80,7 +80,6 @@ void EnemyControllerState01::createEnemy(const EnemyController* context, int cou
     const float width = m_winSize.width;
     const float height = m_winSize.height;
 
-#if 1
     if (m_state_count == 0) {
         const kEnemy enemy_type = kEnemyGround_01;
         const int vitality = ENEMY_GROUND_01_VITALITY;
@@ -119,9 +118,7 @@ void EnemyControllerState01::createEnemy(const EnemyController* context, int cou
             m_create_enemy_com_list.push_back(com_list[i]);
         }
     }
-#endif
 
-#if 1
     if (m_state_count == 0) {
         {
             const kEnemy enemy_type = kEnemy_01;
@@ -151,9 +148,7 @@ void EnemyControllerState01::createEnemy(const EnemyController* context, int cou
             }
         }
     }
-#endif
 
-#if 1
     if (m_state_count == 1500) {
         const kEnemy enemy_type = kEnemy_02;
         const int vitality = ENEMY_02_VITALITY;
@@ -176,9 +171,7 @@ void EnemyControllerState01::createEnemy(const EnemyController* context, int cou
             m_create_enemy_com_list.push_back(com_list[i]);
         }
     }
-#endif
 
-#if 1
     if (m_state_count == 2000) {
         const kEnemy enemy_type = kEnemy_03;
         const int vitality = ENEMY_03_VITALITY;
@@ -201,9 +194,7 @@ void EnemyControllerState01::createEnemy(const EnemyController* context, int cou
             m_create_enemy_com_list.push_back(com_list[i]);
         }
     }
-#endif
 
-#if 1
     if (m_state_count == 3000) {
         const kEnemy enemy_type = kEnemy_04;
         const int vitality = ENEMY_04_VITALITY;
@@ -225,9 +216,7 @@ void EnemyControllerState01::createEnemy(const EnemyController* context, int cou
             m_create_enemy_com_list.push_back(com_list[i]);
         }
     }
-#endif
 
-#if 1
     if (m_state_count == 4100) {
         const kEnemy enemy_type = kEnemy_05;
         const int vitality = ENEMY_05_VITALITY;
@@ -241,9 +230,7 @@ void EnemyControllerState01::createEnemy(const EnemyController* context, int cou
             m_create_enemy_com_list.push_back(com_list[i]);
         }
     }
-#endif
 
-#if 1
     if (m_state_count == 5700) {
         const kEnemy enemy_type = kEnemy_06;
         const int vitality = ENEMY_06_VITALITY;
@@ -266,9 +253,7 @@ void EnemyControllerState01::createEnemy(const EnemyController* context, int cou
             m_create_enemy_com_list.push_back(com_list[i]);
         }
     }
-#endif
 
-#if 1
     if (m_state_count == 6900) {
         const kEnemy enemy_type = kEnemy_07;
         const int vitality = ENEMY_07_VITALITY;
@@ -321,9 +306,7 @@ void EnemyControllerState01::createEnemy(const EnemyController* context, int cou
             m_create_enemy_com_list.push_back(com_list[i]);
         }
     }
-#endif
 
-#if 1
     if (m_state_count == 8300) {
         auto game_layer = GameLayer::getGameLayer();
         game_layer->stopBackgroundScroll();
@@ -343,7 +326,6 @@ void EnemyControllerState01::createEnemy(const EnemyController* context, int cou
             m_create_enemy_com_list.push_back(com_list[i]);
         }
     }
-#endif
 
     createEnemyByCommand(enemy_list);
     m_state_count++;
