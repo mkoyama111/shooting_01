@@ -165,6 +165,19 @@ void GameLayer::stopBackgroundScroll()
     m_background_layer->stopAllActions();
 }
 
+void GameLayer::showBossMessage()
+{
+    TTFConfig ttf_config(TTF_FONT_01, 28);
+
+    auto lbl_boss = Label::createWithTTF(ttf_config, "Boss");
+    lbl_boss->setPosition(Point(m_winSize.width * 0.5f, m_winSize.height * 0.7f));
+    this->addChild(lbl_boss, kZOrderGameInfoLabel, kTagGameInfoLabel);
+    lbl_boss->runAction(Sequence::create(
+        Blink::create(3.2f, 4),
+        Hide::create(),
+        NULL));
+}
+
 void GameLayer::createAnimationCache()
 {
     AnimationCache::getInstance()->destroyInstance();

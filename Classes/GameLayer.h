@@ -87,6 +87,7 @@ public:
     int minusMyShipLife();
     void addScore(int score);
     void stopBackgroundScroll();
+    void showBossMessage();
 
 protected:
 

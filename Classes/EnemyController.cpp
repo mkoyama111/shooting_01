@@ -310,6 +310,7 @@ void EnemyControllerState01::createEnemy(const EnemyController* context, int cou
     if (m_state_count == 8300) {
         auto game_layer = GameLayer::getGameLayer();
         game_layer->stopBackgroundScroll();
+        game_layer->showBossMessage();
 
         if (GameLayer::getBackGroundMusic()) {
             if (CocosDenshion::SimpleAudioEngine::getInstance()->isBackgroundMusicPlaying()) {
