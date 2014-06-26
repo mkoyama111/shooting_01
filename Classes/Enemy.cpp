@@ -621,7 +621,7 @@ void Enemy05::update2()
             m_create_bullets_com_list.push_back(create_bullet);
         }
     } else {
-        if (m_count > 150 && m_count % 200 == 0) {
+        if (m_count > 150 && m_count <= 1200 && m_count % 200 == 0) {
             auto game_layer = GameLayer::getGameLayer();
             const Point& pos = this->getPosition();
             const short ang = game_layer->getAngleToMyShip(pos.x, pos.y);
