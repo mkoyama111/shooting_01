@@ -297,7 +297,7 @@ void EnemyControllerState01::createEnemy(const EnemyController* context, int cou
             { 690, enemy_type, 36, width * 0.9f, height * 1.0f, 270, vitality, score, false, kItem_NULL },
             { 700, enemy_type, 37, width * 0.3f, height * 1.0f, 270, vitality, score, false, kItem_NULL },
             { 750, enemy_type, 38, width * 0.7f, height * 1.0f, 270, vitality, score, false, kItem_NULL },
-            { 760, enemy_type, 39, width * 0.1f, height * 1.0f, 270, vitality, score, false, kItem_NULL },
+            { 760, enemy_type, 39, width * 0.1f, height * 1.0f, 270, vitality, score, false, kItem_01 },
             { 770, enemy_type, 40, width * 0.5f, height * 1.0f, 270, vitality, score, false, kItem_NULL },
             { 780, enemy_type, 41, width * 0.0f, height * 0.8f, 270, vitality, score, false, kItem_NULL },
             { 790, enemy_type, 42, width * 1.0f, height * 0.7f, 270, vitality, score, false, kItem_NULL },

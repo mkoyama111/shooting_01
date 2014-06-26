@@ -80,6 +80,7 @@ public:
 
     int getAngleToMyShip(float x, float y) const;
     const cocos2d::Point& getMyShipPos() const;
+    kMyBullet getMyShipBullet() const;
 
     void getMoveBackgroundParam(float& duration, cocos2d::Point& delta_pos);
 

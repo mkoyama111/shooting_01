@@ -256,11 +256,14 @@ void Enemy::emitItem()
 {
     if (m_item != kItem_NULL) {
         auto game_layer = GameLayer::getGameLayer();
-        const Point& pos = this->getPosition();
-        auto item = Enemy::createEnemy(kEnemyItem_01, 1, pos.x, pos.y, 90, 1, 0, false, kItem_NULL);
-        game_layer->addChild(item, GameLayer::kZOrderEnemy, GameLayer::kTagEnemy);
-        std::list<Enemy*>& enemy_list = game_layer->getEnemyList();
-        enemy_list.push_back(item);
+
+        if (game_layer->getMyShipBullet() + 1 < kMyBullet_Num) {
+            const Point& pos = this->getPosition();
+            auto item = Enemy::createEnemy(kEnemyItem_01, 1, pos.x, pos.y, 90, 1, 0, false, kItem_NULL);
+            game_layer->addChild(item, GameLayer::kZOrderEnemy, GameLayer::kTagEnemy);
+            std::list<Enemy*>& enemy_list = game_layer->getEnemyList();
+            enemy_list.push_back(item);
+        }
     }
 }
 

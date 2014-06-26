@@ -130,6 +130,11 @@ const cocos2d::Point& GameLayer::getMyShipPos() const
     return m_myShip->getPosition();
 }
 
+kMyBullet GameLayer::getMyShipBullet() const
+{
+    return m_myShip->getBullet();
+}
+
 void GameLayer::getMoveBackgroundParam(float& duration, cocos2d::Point& delta_pos)
 {
     duration = m_move_duration;
