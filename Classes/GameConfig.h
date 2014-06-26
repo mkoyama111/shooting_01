@@ -135,10 +135,10 @@ static const float MY_BULLET_01_SPEED = 10.0f;
 static const int MY_BULLET_01_DAMAGE  = 10;
 // 自弾02
 static const float MY_BULLET_02_SPEED = 10.0f;
-static const int MY_BULLET_02_DAMAGE  = 5;
+static const int MY_BULLET_02_DAMAGE  = 8;
 // 自弾02
 static const float MY_BULLET_03_SPEED = 10.0f;
-static const int MY_BULLET_03_DAMAGE  = 5;
+static const int MY_BULLET_03_DAMAGE  = 8;
 
 // 自レーザー
 static const float MY_LASER_LOCKING_DISTANCE = 300.0f;
@@ -179,7 +179,7 @@ static const int ENEMY_09_SCORE    = 1000;
 static const int ENEMY_GROUND_01_VITALITY = 100;
 static const int ENEMY_GROUND_01_SCORE    = 100;
 // 敵ボス01
-static const int ENEMY_BOSS_01_VITALITY = 20000;
+static const int ENEMY_BOSS_01_VITALITY = 25000;
 static const int ENEMY_BOSS_01_SCORE    = 5000;
 
 #endif

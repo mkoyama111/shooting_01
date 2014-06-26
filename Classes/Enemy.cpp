@@ -816,6 +816,15 @@ void EnemyBoss01::update2()
                 CreateBulletCommand create_bullet = { kEnemyBullet_01, -1, -1, 270, 2.5f, 0.0f, 0.0f, 18, 20, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 5, 0, 15, angle_rate };
                 m_create_bullets_com_list.push_back(create_bullet);
             }
+
+            if (n_lap > 0) {
+                // 5way
+                if (count_2 % 200 == 0) {
+                    const short ang = game_layer->getAngleToMyShip(pos.x, pos.y);
+                    CreateBulletCommand create_bullet = { kEnemyBullet_06, -1, -1, ang, 3.5f, 0.0f, 0.0f, 5, 20, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 15, 0, 5, 0 };
+                    m_create_bullets_com_list.push_back(create_bullet);
+                }
+            }
         }
         appear_count_max += 100;
 
@@ -839,6 +848,15 @@ void EnemyBoss01::update2()
                 CreateBulletCommand create_bullet4 = { kEnemyBullet_01, -1, -1, 360 + 360, 5.0f, -0.05f, 2.5f, 1, 0, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 90, 0, 4, ang_rate };
                 m_create_bullets_com_list.push_back(create_bullet4);
             }
+
+            if (n_lap > 0) {
+                // 5way
+                if (count_2 % 200 == 0) {
+                    const short ang = game_layer->getAngleToMyShip(pos.x, pos.y);
+                    CreateBulletCommand create_bullet = { kEnemyBullet_06, -1, -1, ang, 3.5f, 0.0f, 0.0f, 5, 20, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 15, 0, 5, 0 };
+                    m_create_bullets_com_list.push_back(create_bullet);
+                }
+            }
         }
         appear_count_max += 60;
 
@@ -850,6 +868,15 @@ void EnemyBoss01::update2()
             const short ang = 180 + (m_count % 4) * 45 + rand() % 45;
             CreateBulletCommand create_bullet = { kEnemyBullet_01, -1, -1, ang, 2.8f, 0.0f, 0.0f, 1, 0, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 1, 0, 0, 0 };
             m_create_bullets_com_list.push_back(create_bullet);
+
+            if (n_lap > 0) {
+                // 5way
+                if (count_2 % 200 == 0) {
+                    const short ang = game_layer->getAngleToMyShip(pos.x, pos.y);
+                    CreateBulletCommand create_bullet = { kEnemyBullet_06, -1, -1, ang, 3.5f, 0.0f, 0.0f, 5, 20, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 15, 0, 5, 0 };
+                    m_create_bullets_com_list.push_back(create_bullet);
+                }
+            }
         }
         appear_count_max += 10;
 
@@ -870,7 +897,7 @@ void EnemyBoss01::update2()
 
             if (n_lap > 0) {
                 if (count_2 % 60 == 0) {
-                    CreateBulletCommand create_bullet = { kEnemyBullet_01, -1, -1, 270, 2.5f, 0.0f, 0.0f, 6, 30, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 1, 0, 0, 0 };
+                    CreateBulletCommand create_bullet = { kEnemyBullet_04, -1, -1, 270, 2.5f, 0.0f, 0.0f, 6, 30, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 1, 0, 0, 0 };
                     m_create_bullets_com_list.push_back(create_bullet);
                 }
             }
@@ -894,7 +921,7 @@ void EnemyBoss01::update2()
 
             if (n_lap > 0) {
                 if (count_2 % 60 == 0) {
-                    CreateBulletCommand create_bullet = { kEnemyBullet_01, -1, -1, 270, 2.5f, 0.0f, 0.0f, 6, 30, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 1, 0, 0, 0 };
+                    CreateBulletCommand create_bullet = { kEnemyBullet_04, -1, -1, 270, 2.5f, 0.0f, 0.0f, 6, 30, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 1, 0, 0, 0 };
                     m_create_bullets_com_list.push_back(create_bullet);
                 }
             }
@@ -918,7 +945,7 @@ void EnemyBoss01::update2()
 
             if (n_lap > 0) {
                 if (count_2 % 60 == 0) {
-                    CreateBulletCommand create_bullet = { kEnemyBullet_01, -1, -1, 270, 2.5f, 0.0f, 0.0f, 6, 30, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 1, 0, 0, 0 };
+                    CreateBulletCommand create_bullet = { kEnemyBullet_04, -1, -1, 270, 2.5f, 0.0f, 0.0f, 6, 30, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 1, 0, 0, 0 };
                     m_create_bullets_com_list.push_back(create_bullet);
                 }
             }
@@ -945,7 +972,7 @@ void EnemyBoss01::update2()
 
             if (n_lap > 0) {
                 if (count_2 % 60 == 0) {
-                    CreateBulletCommand create_bullet = { kEnemyBullet_01, -1, -1, 270, 2.5f, 0.0f, 0.0f, 6, 30, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 1, 0, 0, 0 };
+                    CreateBulletCommand create_bullet = { kEnemyBullet_04, -1, -1, 270, 2.5f, 0.0f, 0.0f, 6, 30, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 1, 0, 0, 0 };
                     m_create_bullets_com_list.push_back(create_bullet);
                 }
             }
@@ -969,7 +996,7 @@ void EnemyBoss01::update2()
 
             if (n_lap > 0) {
                 if (count_2 % 60 == 0) {
-                    CreateBulletCommand create_bullet = { kEnemyBullet_01, -1, -1, 270, 2.5f, 0.0f, 0.0f, 6, 30, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 1, 0, 0, 0 };
+                    CreateBulletCommand create_bullet = { kEnemyBullet_04, -1, -1, 270, 2.5f, 0.0f, 0.0f, 6, 30, 0, -1, 0, 0, 0.0f, 0.0f, 0.0f, 0, 1, 0, 0, 0 };
                     m_create_bullets_com_list.push_back(create_bullet);
                 }
             }
