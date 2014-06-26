@@ -465,7 +465,7 @@ void Enemy01::update2()
     }
 
     //// Bullets
-    if (m_count > 100 && m_count % 100 == 0) {
+    if (m_count > 0 && m_count % 100 == 0) {
         auto game_layer = GameLayer::getGameLayer();
         const Point& pos = this->getPosition();
         const short ang = game_layer->getAngleToMyShip(pos.x, pos.y);
@@ -770,7 +770,7 @@ void Enemy08::update2()
 void EnemyGround01::update2()
 {
     //// Bullets
-    if (m_count > 0 && m_count % 100 == 0) {
+    if (m_count > 100 && m_count % 100 == 0) {
         auto game_layer = GameLayer::getGameLayer();
         const Point& pos = this->getPosition();
         const short ang = game_layer->getAngleToMyShip(pos.x, pos.y);
@@ -1170,10 +1170,9 @@ void Enemy09::update2()
             }
         }
         //// Bullets: 回転円
-        if (m_count > 50) {
+        if (m_count > 50 && m_count <= 1000) {
             const int t1 = 0;
-            const int t2 = (m_count < 600) ? 0 : 40;
-            if ((m_count - 50) % 80 == t1 || (m_count - 50) % 80 == t2) {
+            if ((m_count - 50) % 50 == t1) {
                 auto game_layer = GameLayer::getGameLayer();
                 const Point& pos = this->getPosition();
                 const short ang = game_layer->getAngleToMyShip(pos.x, pos.y);

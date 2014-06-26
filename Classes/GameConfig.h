@@ -127,18 +127,18 @@ static const float MY_SHIP_SPEED_X    = 5.0f;
 static const float MY_SHIP_SPEED_Y    = 5.0f;
 static const int MY_SHIP_LIFE_COUNT   = 10;
 static const int MY_SHIP_VITALITY     = 1;
-static const int MY_SHIP_CRASH_DAMAGE = 1;
+static const int MY_SHIP_CRASH_DAMAGE = 100;
 static const int MY_SHIP_MUTEKI_TIME_AFTER_DAMAGE = 180;
 
 // 自弾01
 static const float MY_BULLET_01_SPEED = 10.0f;
-static const int MY_BULLET_01_DAMAGE  = 1;
+static const int MY_BULLET_01_DAMAGE  = 10;
 // 自弾02
 static const float MY_BULLET_02_SPEED = 10.0f;
-static const int MY_BULLET_02_DAMAGE  = 1;
+static const int MY_BULLET_02_DAMAGE  = 5;
 // 自弾02
 static const float MY_BULLET_03_SPEED = 10.0f;
-static const int MY_BULLET_03_DAMAGE  = 1;
+static const int MY_BULLET_03_DAMAGE  = 5;
 
 // 自レーザー
 static const float MY_LASER_LOCKING_DISTANCE = 300.0f;
@@ -146,40 +146,40 @@ static const float MY_LASER_FADE_TIME        = 0.5f;
 static const float MY_LASER_STROKE_WIDTH     = 9.0f;
 static const float MY_LASER_SPLINE_DURATION  = 0.8f;
 static const int DURATION_OF_SET_MY_LASER    = 60;
-static const int MY_LASER_DAMAGE             = 20;
+static const int MY_LASER_DAMAGE             = 200;
 
 // 敵機01
-static const int ENEMY_01_VITALITY = 10;
+static const int ENEMY_01_VITALITY = 100;
 static const int ENEMY_01_SCORE    = 100;
 // 敵機02
-static const int ENEMY_02_VITALITY = 10;
+static const int ENEMY_02_VITALITY = 100;
 static const int ENEMY_02_SCORE    = 100;
 // 敵機03
-static const int ENEMY_03_VITALITY = 10;
+static const int ENEMY_03_VITALITY = 100;
 static const int ENEMY_03_SCORE    = 100;
 // 敵機04
-static const int ENEMY_04_VITALITY = 50;
+static const int ENEMY_04_VITALITY = 500;
 static const int ENEMY_04_SCORE    = 500;
 // 敵機05
-static const int ENEMY_05_VITALITY = 150;
+static const int ENEMY_05_VITALITY = 1500;
 static const int ENEMY_05_SCORE    = 1500;
 // 敵機06
-static const int ENEMY_06_VITALITY = 50;
+static const int ENEMY_06_VITALITY = 500;
 static const int ENEMY_06_SCORE    = 500;
 // 敵機07
-static const int ENEMY_07_VITALITY = 8;
+static const int ENEMY_07_VITALITY = 80;
 static const int ENEMY_07_SCORE    = 100;
 // 敵機08
-static const int ENEMY_08_VITALITY = 200;
+static const int ENEMY_08_VITALITY = 2000;
 static const int ENEMY_08_SCORE    = 2000;
 // 敵機09
-static const int ENEMY_09_VITALITY = 100;
+static const int ENEMY_09_VITALITY = 1000;
 static const int ENEMY_09_SCORE    = 1000;
 // 地上敵01
-static const int ENEMY_GROUND_01_VITALITY = 10;
+static const int ENEMY_GROUND_01_VITALITY = 100;
 static const int ENEMY_GROUND_01_SCORE    = 100;
 // 敵ボス01
-static const int ENEMY_BOSS_01_VITALITY = 2000;
+static const int ENEMY_BOSS_01_VITALITY = 20000;
 static const int ENEMY_BOSS_01_SCORE    = 5000;
 
 #endif
