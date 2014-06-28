@@ -145,7 +145,7 @@ Enemy* Enemy::spriteWithFile(kEnemy type, int num, float x, float y, int angle, 
             pEnemy->m_shadow->setPosition(pEnemy->getPosition() + pEnemy->m_shadow_offset);
             pEnemy->m_shadow->setColor(Color3B::BLACK);
             pEnemy->m_shadow->setScale(0.9f);
-            auto enemy_shadow_layer = (Layer*)game_layer->getChildByTag(GameLayer::kTagEnemyShadowLayer);
+            auto enemy_shadow_layer = static_cast<Layer*>(game_layer->getChildByTag(GameLayer::kTagEnemyShadowLayer));
             enemy_shadow_layer->addChild(pEnemy->m_shadow, GameLayer::kZOrderEnemyShadow, GameLayer::kTagEnemyShadow);
         }
 

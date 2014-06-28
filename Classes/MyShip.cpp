@@ -24,7 +24,7 @@ MyShip::MyShip(kMyBullet bullet, int bullet_damage, int vitality) : m_bullet(bul
 
 MyShip* MyShip::spriteWithFile(const char* pszFileName, kMyBullet bullet, int bullet_damage, int vitality)
 {
-    MyShip* pMyShip = new MyShip(bullet, bullet_damage, vitality);
+    auto pMyShip = new MyShip(bullet, bullet_damage, vitality);
     if (pMyShip && pMyShip->initWithSpriteFrameName(pszFileName)) {
         pMyShip->autorelease();
         pMyShip->scheduleUpdate();
@@ -214,7 +214,7 @@ void MyShip::setLaser()
         }
         auto enemy = laser->getEnemy();
         if (enemy->getFinished()) {
-            auto laser_lock_layer = (Layer*)game_layer->getChildByTag(GameLayer::kTagLaserLockLayer);
+            auto laser_lock_layer = static_cast<Layer*>(game_layer->getChildByTag(GameLayer::kTagLaserLockLayer));
             if (laser_lock_layer) {
                 auto lock_mark = laser_lock_layer->getChildByTag(laser->getStreakTag());
                 lock_mark->setVisible(false);
@@ -223,7 +223,7 @@ void MyShip::setLaser()
         }
     }
 
-    auto laser_layer = (Layer*)game_layer->getChildByTag(GameLayer::kTagLaserLayer);
+    auto laser_layer = static_cast<Layer*>(game_layer->getChildByTag(GameLayer::kTagLaserLayer));
     if (laser_layer) {
         auto& enemy_list = game_layer->getEnemyList();
         int i = 0;
@@ -259,7 +259,7 @@ void MyShip::launchLaser()
         if (enemy->getFinished() || laser->getCanceled()) {
 
             auto game_layer = GameLayer::getGameLayer();
-            auto laser_lock_layer = (Layer*)game_layer->getChildByTag(GameLayer::kTagLaserLockLayer);
+            auto laser_lock_layer = static_cast<Layer*>(game_layer->getChildByTag(GameLayer::kTagLaserLockLayer));
             if (laser_lock_layer) {
                 auto lock_mark = laser_lock_layer->getChildByTag(laser->getStreakTag());
                 if (lock_mark) {
@@ -286,7 +286,7 @@ void MyShip::launchLaser()
             }
             auto spline = CardinalSplineTo::create(MY_LASER_SPLINE_DURATION, p_array, 0.0f);
 
-            auto funcN = CallFuncN::create(CC_CALLBACK_1(MyShip::launchLaserCallback, this, (void*)enemy));
+            auto funcN = CallFuncN::create(CC_CALLBACK_1(MyShip::launchLaserCallback, this, reinterpret_cast<void*>(enemy)));
             auto remove = RemoveSelf::create();
             auto seq = Sequence::create(spline, funcN, remove, NULL);
 
@@ -302,12 +302,12 @@ void MyShip::launchLaserCallback(cocos2d::Node* sender, void* target)
 {
     auto game_layer = GameLayer::getGameLayer();
 
-    auto enemy = (Enemy*)target;
+    auto enemy = reinterpret_cast<Enemy*>(target);
     if (enemy) {
         if (!enemy->getFinished()) {
             if (enemy->damage(MY_LASER_DAMAGE)) {
                 game_layer->addScore(enemy->getScore());
-                game_layer->createExplosion((GameLayer::kTag)enemy->getTag(), enemy->getPosition(), true);
+                game_layer->createExplosion(static_cast<GameLayer::kTag>(enemy->getTag()), enemy->getPosition(), true);
             } else {
                 game_layer->addScore(10);
             }
@@ -315,9 +315,9 @@ void MyShip::launchLaserCallback(cocos2d::Node* sender, void* target)
         enemy->setLaserLocked(false);
     }
 
-    auto laser = (Laser*)sender;
+    auto laser = static_cast<Laser*>(sender);
 
-    auto laser_lock_layer = (Layer*)game_layer->getChildByTag(GameLayer::kTagLaserLockLayer);
+    auto laser_lock_layer = static_cast<Layer*>(game_layer->getChildByTag(GameLayer::kTagLaserLockLayer));
     if (laser_lock_layer) {
         auto lock_mark = laser_lock_layer->getChildByTag(laser->getStreakTag());
         if (lock_mark) {
@@ -325,7 +325,7 @@ void MyShip::launchLaserCallback(cocos2d::Node* sender, void* target)
         }
     }
 
-    auto laser_layer = (Layer*)game_layer->getChildByTag(GameLayer::kTagLaserLayer);
+    auto laser_layer = static_cast<Layer*>(game_layer->getChildByTag(GameLayer::kTagLaserLayer));
     if (laser_layer) {
         auto streak = laser_layer->getChildByTag(laser->getStreakTag());
         if (streak) {

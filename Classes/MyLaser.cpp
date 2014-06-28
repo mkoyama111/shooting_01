@@ -49,10 +49,10 @@ Laser* Laser::spriteWithFile(kMyLaser type, int streak_tag, Enemy* enemy)
 void Laser::initStreak(cocos2d::Point point)
 {
     auto game_layer = GameLayer::getGameLayer();
-    auto laser_layer = (Layer*)game_layer->getChildByTag(GameLayer::kTagLaserLayer);
+    auto laser_layer = static_cast<Layer*>(game_layer->getChildByTag(GameLayer::kTagLaserLayer));
 
     if (laser_layer) {
-        MotionStreak* streak = MotionStreak::create(
+        auto streak = MotionStreak::create(
             MY_LASER_FADE_TIME, 1.0f, MY_LASER_STROKE_WIDTH, Color3B(0xff, 0xff, 0xff), IMAGE_MY_BULLET_LASER);
 
         BlendFunc blend;
@@ -70,7 +70,7 @@ void Laser::update(float dt)
 {
     if (m_init) {
         auto game_layer = GameLayer::getGameLayer();
-        auto laser_layer = (Layer*)game_layer->getChildByTag(GameLayer::kTagLaserLayer);
+        auto laser_layer = static_cast<Layer*>(game_layer->getChildByTag(GameLayer::kTagLaserLayer));
         if (laser_layer) {
             auto streak = laser_layer->getChildByTag(m_streak_tag);
             if (streak) {

@@ -472,7 +472,7 @@ void GameLayer::checkCollision()
                         if (!m_game_over) {
                             m_score += elem->getScore();
                         }
-                        createExplosion((kTag)elem->getTag(), elem->getPosition(), true);
+                        createExplosion(static_cast<kTag>(elem->getTag()), elem->getPosition(), true);
                     } else {
                         m_score += 10;
                     }
@@ -501,7 +501,7 @@ void GameLayer::checkCollision()
                     if (!m_game_over) {
                         m_score += enemy->getScore();
                     }
-                    createExplosion((kTag)enemy->getTag(), enemy->getPosition(), true);
+                    createExplosion(static_cast<kTag>(enemy->getTag()), enemy->getPosition(), true);
                 }
 
                 if (m_myShip->damage(1)) {
@@ -576,7 +576,7 @@ void GameLayer::getItem(kEnemy enemy_type, bool play_se)
 void GameLayer::powerupWeapon()
 {
     if (m_myShip->getBullet() + 1 < kMyBullet_Num) {
-        m_myShip->setBullet((kMyBullet)(m_myShip->getBullet() + 1));
+        m_myShip->setBullet(static_cast<kMyBullet>((m_myShip->getBullet() + 1)));
     }
 }
 
